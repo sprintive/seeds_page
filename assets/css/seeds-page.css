@@ -142,8 +142,13 @@
 
 .seeds-block-paragraph-item .field--name-field-seeds-image {
   position: relative; }
-  .seeds-block-paragraph-item .field--name-field-seeds-image::after {
-    content: '';
+  .seeds-block-paragraph-item .field--name-field-seeds-image img {
+    width: 100%; }
+
+.block-card {
+  position: relative; }
+  .block-card .field--name-field-seeds-image::after {
+    content: "";
     background: rgba(0, 0, 0, 0.2);
     width: 100%;
     height: 100%;
@@ -151,11 +156,6 @@
     left: 0;
     right: 0;
     position: absolute; }
-  .seeds-block-paragraph-item .field--name-field-seeds-image img {
-    width: 100%; }
-
-.block-card {
-  position: relative; }
   .block-card .body-wrapper {
     z-index: 1;
     position: absolute;
