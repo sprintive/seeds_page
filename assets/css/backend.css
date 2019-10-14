@@ -1,0 +1,51 @@
+.block-content-form .form-type-radio {
+  display: inline-block;
+  width: 24%;
+  text-align: center; }
+  @media (max-width: 992px) {
+    .block-content-form .form-type-radio {
+      width: 49%; } }
+  @media (max-width: 768px) {
+    .block-content-form .form-type-radio {
+      width: 24%; } }
+  .block-content-form .form-type-radio input {
+    display: none !important; }
+  .block-content-form .form-type-radio input[value='block-teaser-left'] + label {
+    background-image: url(../images/left.svg); }
+  .block-content-form .form-type-radio input[value='block-teaser'] + label {
+    background-image: url(../images/teaser.svg); }
+  .block-content-form .form-type-radio input[value='block-teaser-right'] + label {
+    background-image: url(../images/right.svg); }
+  .block-content-form .form-type-radio input[value='block-card'] + label {
+    background-image: url(../images/card.svg); }
+  .block-content-form .form-type-radio input[value='col-lg-3'] + label {
+    background-image: url(../images/desktop4.svg); }
+  .block-content-form .form-type-radio input[value='col-lg-4'] + label {
+    background-image: url(../images/desktop3.svg); }
+  .block-content-form .form-type-radio input[value='col-lg-6'] + label {
+    background-image: url(../images/desktop2.svg); }
+  .block-content-form .form-type-radio input[value='col-lg-12'] + label {
+    background-image: url(../images/desktop1.svg); }
+  .block-content-form .form-type-radio input[value*='col-md-4'] + label {
+    background-image: url(../images/tablet3.svg); }
+  .block-content-form .form-type-radio input[value*='col-md-6'] + label {
+    background-image: url(../images/tablet2.svg); }
+  .block-content-form .form-type-radio input[value*='col-md-12'] + label {
+    background-image: url(../images/tablet1.svg); }
+  .block-content-form .form-type-radio input[value='col-xs-6'] + label {
+    background-image: url(../images/mobile2.svg); }
+  .block-content-form .form-type-radio input[value='col-xs-12'] + label {
+    background-image: url(../images/mobile1.svg); }
+  .block-content-form .form-type-radio input:checked + label {
+    border: 3px solid #00AAFF; }
+  .block-content-form .form-type-radio label {
+    width: 145px;
+    display: block;
+    font-size: 0;
+    margin: 0 auto;
+    height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; }
+
+/*# sourceMappingURL=backend.css.map */

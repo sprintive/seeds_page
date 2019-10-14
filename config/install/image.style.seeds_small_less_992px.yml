@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: seeds_small_less_992px
+label: 'Small Less 992px'
+effects:
+  d204daac-0038-41d6-b6c2-e1202e71aa96:
+    uuid: d204daac-0038-41d6-b6c2-e1202e71aa96
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 700
+      height: 590
+      crop_type: focal_point

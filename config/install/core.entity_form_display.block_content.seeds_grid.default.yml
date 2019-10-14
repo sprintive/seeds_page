@@ -1,0 +1,139 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.seeds_grid
+    - field.field.block_content.seeds_grid.field_seeds_background_color
+    - field.field.block_content.seeds_grid.field_seeds_background_image
+    - field.field.block_content.seeds_grid.field_seeds_block_parallax
+    - field.field.block_content.seeds_grid.field_seeds_container
+    - field.field.block_content.seeds_grid.field_seeds_desktop
+    - field.field.block_content.seeds_grid.field_seeds_mobile
+    - field.field.block_content.seeds_grid.field_seeds_paragraph
+    - field.field.block_content.seeds_grid.field_seeds_tablet
+    - image.style.thumbnail
+  module:
+    - field_group
+    - image
+    - paragraphs
+third_party_settings:
+  field_group:
+    group_tabs:
+      children:
+        - group_bas
+        - group_options
+      parent_name: ''
+      weight: 1
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: horizontal
+      label: Tabs
+      region: content
+    group_bas:
+      children:
+        - field_seeds_paragraph
+      parent_name: group_tabs
+      weight: 5
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: 'Basic Information'
+      region: content
+    group_options:
+      children:
+        - field_seeds_background_image
+        - field_seeds_background_color
+        - field_seeds_container
+        - field_seeds_block_parallax
+        - field_seeds_desktop
+        - field_seeds_tablet
+        - field_seeds_mobile
+      parent_name: group_tabs
+      weight: 6
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Options
+      region: content
+id: block_content.seeds_grid.default
+targetEntityType: block_content
+bundle: seeds_grid
+mode: default
+content:
+  field_seeds_background_color:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_seeds_background_image:
+    weight: 4
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+  field_seeds_block_parallax:
+    weight: 7
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_seeds_container:
+    weight: 6
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_seeds_desktop:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_seeds_mobile:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_seeds_paragraph:
+    weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
+  field_seeds_tablet:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  info:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

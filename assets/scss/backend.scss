@@ -1,0 +1,75 @@
+.block-content-form {
+    .form-type-radio {
+            display: inline-block;
+            width: 24%;
+            text-align: center;
+            @media (max-width: 992px) {
+                width: 49%
+            }
+            @media (max-width: 768px) {
+                width: 24%
+            }
+            input {
+                display: none !important;
+            }
+
+            input[value='block-teaser-left']+ label {
+                background-image: url(../images/left.svg);
+            }
+            input[value='block-teaser']+ label {
+                background-image: url(../images/teaser.svg);
+            }
+            input[value='block-teaser-right']+ label {
+                background-image: url(../images/right.svg);
+            }
+            input[value='block-card']+ label {
+                background-image: url(../images/card.svg);
+            }
+
+            input[value='col-lg-3']+ label {
+                background-image: url(../images/desktop4.svg);
+            }
+            input[value='col-lg-4']+ label {
+                background-image: url(../images/desktop3.svg);
+            }
+            input[value='col-lg-6']+ label {
+                background-image: url(../images/desktop2.svg);
+            }
+            input[value='col-lg-12']+ label {
+                background-image: url(../images/desktop1.svg);
+            }
+
+            input[value*='col-md-4']+ label {
+                background-image: url(../images/tablet3.svg);
+            }
+            input[value*='col-md-6']+ label {
+                background-image: url(../images/tablet2.svg);
+            }
+            input[value*='col-md-12']+ label {
+                background-image: url(../images/tablet1.svg);
+            }
+
+            input[value='col-xs-6']+ label {
+                background-image: url(../images/mobile2.svg);
+            }
+            input[value='col-xs-12']+ label {
+                background-image: url(../images/mobile1.svg);
+            }
+
+
+            input:checked+ label {
+                border: 3px solid #00AAFF;
+            }
+
+            label {
+                width: 145px;
+                display: block;
+                font-size: 0;
+                margin: 0 auto;
+                height: 100px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+    }
+}

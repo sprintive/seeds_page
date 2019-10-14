@@ -1,0 +1,115 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.seeds_accordion
+    - field.field.block_content.seeds_accordion.field_seeds_background_color
+    - field.field.block_content.seeds_accordion.field_seeds_background_image
+    - field.field.block_content.seeds_accordion.field_seeds_block_parallax
+    - field.field.block_content.seeds_accordion.field_seeds_container
+    - field.field.block_content.seeds_accordion.field_seeds_paragraph
+    - image.style.thumbnail
+  module:
+    - field_group
+    - image
+    - paragraphs
+third_party_settings:
+  field_group:
+    group_tabs:
+      children:
+        - group_basic_information
+        - group_options
+      parent_name: ''
+      weight: 1
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: horizontal
+      label: Tabs
+      region: content
+    group_basic_information:
+      children:
+        - field_seeds_paragraph
+      parent_name: group_tabs
+      weight: 20
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: open
+        required_fields: true
+      label: 'Basic Information'
+      region: content
+    group_options:
+      children:
+        - field_seeds_background_image
+        - field_seeds_background_color
+        - field_seeds_container
+        - field_seeds_block_parallax
+      parent_name: group_tabs
+      weight: 21
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Options
+      region: content
+id: block_content.seeds_accordion.default
+targetEntityType: block_content
+bundle: seeds_accordion
+mode: default
+content:
+  field_seeds_background_color:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_seeds_background_image:
+    weight: 2
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+  field_seeds_block_parallax:
+    weight: 5
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_seeds_container:
+    weight: 4
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_seeds_paragraph:
+    weight: 27
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: seeds_paragraph
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
+  info:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

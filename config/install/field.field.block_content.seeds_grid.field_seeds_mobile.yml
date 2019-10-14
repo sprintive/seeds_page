@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.seeds_grid
+    - field.storage.block_content.field_seeds_mobile
+  module:
+    - options
+id: block_content.seeds_grid.field_seeds_mobile
+field_name: field_seeds_mobile
+entity_type: block_content
+bundle: seeds_grid
+label: Mobile
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

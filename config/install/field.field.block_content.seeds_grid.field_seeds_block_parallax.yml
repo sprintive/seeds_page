@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.seeds_grid
+    - field.storage.block_content.field_seeds_block_parallax
+id: block_content.seeds_grid.field_seeds_block_parallax
+field_name: field_seeds_block_parallax
+entity_type: block_content
+bundle: seeds_grid
+label: Parallax
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

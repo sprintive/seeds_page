@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: seeds_banner_992px
+label: 'Banner Over 992px'
+effects:
+  282f38ca-784f-4a4b-9a55-fb0aeee203e3:
+    uuid: 282f38ca-784f-4a4b-9a55-fb0aeee203e3
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 1800
+      height: 400
+      crop_type: focal_point

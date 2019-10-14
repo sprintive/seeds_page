@@ -1,0 +1,9 @@
+
+seeds_page.seeds_page_form:
+  path: '/admin/config/content/seeds_page'
+  defaults:
+    _form: '\Drupal\seeds_page\Form\SeedsPageForm'
+    _title: 'Seeds Page'
+  requirements:
+    _permission: 'administer seeds page'
+  

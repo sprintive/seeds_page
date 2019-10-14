@@ -1,0 +1,11 @@
+<?php
+use Drupal\views\Entity\View;
+
+/**
+ * Implements hook_install().
+ */
+function seeds_page_install() {
+	$content_view = View::load('content');
+	$content_view->getExecutable()->addHandler('page_1','field','node__field_seeds_seo','field_seeds_seo',['type' => 'yoastseo_formatter'],'field_seeds_seo');
+	$content_view->save();
+  }

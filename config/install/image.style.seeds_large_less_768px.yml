@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: seeds_large_less_768px
+label: 'Large Less 768px'
+effects:
+  d2b6dae6-558f-43c5-9412-4d95518bc1cc:
+    uuid: d2b6dae6-558f-43c5-9412-4d95518bc1cc
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 768
+      height: 700
+      crop_type: focal_point

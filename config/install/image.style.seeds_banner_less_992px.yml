@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: seeds_banner_less_992px
+label: 'Banner Less 992px'
+effects:
+  d99b68c8-15b1-483a-b31a-a8f0faa77d93:
+    uuid: d99b68c8-15b1-483a-b31a-a8f0faa77d93
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 992
+      height: 500
+      crop_type: focal_point

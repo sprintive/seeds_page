@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - options
+id: block_content.field_seeds_desktop
+field_name: field_seeds_desktop
+entity_type: block_content
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: col-lg-3
+      label: 'Four Columns'
+    -
+      value: col-lg-4
+      label: 'Three Columns'
+    -
+      value: col-lg-6
+      label: 'Two Columns'
+    -
+      value: col-lg-12
+      label: 'One Column'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

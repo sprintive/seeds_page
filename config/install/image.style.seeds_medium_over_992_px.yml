@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: seeds_medium_over_992_px
+label: 'Medium Over 992px'
+effects:
+  02f57bc0-ab98-41ac-a3fe-e9e1b3bf9f26:
+    uuid: 02f57bc0-ab98-41ac-a3fe-e9e1b3bf9f26
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 1000
+      height: 860
+      crop_type: focal_point

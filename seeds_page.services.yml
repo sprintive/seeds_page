@@ -1,0 +1,4 @@
+services:
+  seeds_page.manager:
+    class: Drupal\seeds_page\SeedsPageManager
+    arguments: ['@renderer','@image.factory','@current_route_match','@config.factory']

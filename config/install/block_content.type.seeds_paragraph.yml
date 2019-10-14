@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: seeds_paragraph
+label: Paragraph
+revision: 0
+description: ''

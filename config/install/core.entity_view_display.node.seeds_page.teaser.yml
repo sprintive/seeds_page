@@ -1,0 +1,33 @@
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.seeds_page.seeds_body
+    - field.field.node.seeds_page.layout_builder__layout
+    - node.type.seeds_page
+  module:
+    - text
+    - user
+id: node.seeds_page.teaser
+targetEntityType: node
+bundle: seeds_page
+mode: teaser
+content:
+  seeds_body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_seeds_banner: true
+  field_seeds_seo: true
+  layout_builder__layout: true

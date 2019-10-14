@@ -1,0 +1,59 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.seeds_paragraph.field_seeds_image
+    - field.field.paragraph.seeds_paragraph.field_seeds_link
+    - field.field.paragraph.seeds_paragraph.field_seeds_style
+    - field.field.paragraph.seeds_paragraph.field_seeds_text
+    - field.field.paragraph.seeds_paragraph.field_seeds_title
+    - paragraphs.paragraphs_type.seeds_paragraph
+  module:
+    - link
+    - media_library
+    - text
+id: paragraph.seeds_paragraph.default
+targetEntityType: paragraph
+bundle: seeds_paragraph
+mode: default
+content:
+  field_seeds_image:
+    weight: 1
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    type: media_library_widget
+    region: content
+  field_seeds_link:
+    weight: 4
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_seeds_style:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_seeds_text:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_seeds_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true

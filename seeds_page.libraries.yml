@@ -1,0 +1,19 @@
+paragraph_block:
+  css:
+    theme:
+      assets/css/seeds-page.css: {}
+  js:
+    assets/js/seeds-page.js: {}
+  dependencies:
+    - core/drupal.dialog
+
+backend:
+  css:
+    theme:
+      assets/css/backend.css: {}
+
+tabs:
+  js:
+    assets/js/seeds-tabs.js: {}
+  dependencies:
+    - slick/slick

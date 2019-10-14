@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.seeds_grid
+    - field.storage.block_content.field_seeds_paragraph
+    - paragraphs.paragraphs_type.seeds_paragraph
+  module:
+    - entity_reference_revisions
+id: block_content.seeds_grid.field_seeds_paragraph
+field_name: field_seeds_paragraph
+entity_type: block_content
+bundle: seeds_grid
+label: Paragraph
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      seeds_paragraph: seeds_paragraph
+    target_bundles_drag_drop:
+      seeds_paragraph:
+        enabled: true
+        weight: 2
+field_type: entity_reference_revisions

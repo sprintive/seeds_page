@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: seeds_large_over_992px
+label: 'Large Over 992px'
+effects:
+  ea915795-8508-43c3-bb50-54c148d45def:
+    uuid: ea915795-8508-43c3-bb50-54c148d45def
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 1800
+      height: 800
+      crop_type: focal_point

@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.seeds_small_less_767px
+    - image.style.seeds_small_less_992px
+    - image.style.seeds_small_over_992px
+id: seeds_small
+label: Small
+image_style_mappings:
+  -
+    breakpoint_id: seeds_page.screen-md-min
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: seeds_small_over_992px
+  -
+    breakpoint_id: seeds_page.screen-sm-min
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: seeds_small_less_992px
+  -
+    breakpoint_id: seeds_page.screen-xs-max
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: seeds_small_less_767px
+breakpoint_group: seeds_page
+fallback_image_style: seeds_small_over_992px

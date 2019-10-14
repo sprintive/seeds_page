@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: seeds_medium_less_992px
+label: 'Medium Less 992px'
+effects:
+  bddcdeed-d0a5-4c0e-a279-610a47f8377b:
+    uuid: bddcdeed-d0a5-4c0e-a279-610a47f8377b
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 992
+      height: 900
+      crop_type: focal_point

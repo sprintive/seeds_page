@@ -1,0 +1,36 @@
+name: 'Seeds Page'
+description: 'Provides functionalities to customize the experience in pages using paragraphs'
+type: module
+core: 8.x
+dependencies:
+  - allowed_formats
+  - block_content
+  - crop
+  - ds
+  - entity_reference_revisions
+  - field
+  - field_group
+  - file
+  - focal_point
+  - image
+  - layout_builder
+  - layout_builder_restrictions
+  - layout_discovery
+  - link
+  - media
+  - media_library
+  - menu_ui
+  - node
+  - options
+  - paragraphs
+  - path
+  - responsive_image
+  - seeds
+  - seeds_page
+  - simple_sitemap
+  - slick
+  - slick_paragraphs
+  - text
+  - user
+  - yoast_seo
+package: Seeds

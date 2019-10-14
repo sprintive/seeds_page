@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.seeds_banner_992px
+    - image.style.seeds_banner_less_768px
+    - image.style.seeds_banner_less_992px
+id: seeds_banner
+label: Banner
+image_style_mappings:
+  -
+    breakpoint_id: seeds_page.screen-md-min
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: seeds_banner_992px
+  -
+    breakpoint_id: seeds_page.screen-sm-min
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: seeds_banner_less_992px
+  -
+    breakpoint_id: seeds_page.screen-xs-max
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: seeds_banner_less_768px
+breakpoint_group: seeds_page
+fallback_image_style: seeds_banner_992px

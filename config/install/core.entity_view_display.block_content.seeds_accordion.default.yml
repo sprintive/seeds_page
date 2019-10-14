@@ -1,0 +1,64 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.seeds_accordion
+    - field.field.block_content.seeds_accordion.field_seeds_background_color
+    - field.field.block_content.seeds_accordion.field_seeds_background_image
+    - field.field.block_content.seeds_accordion.field_seeds_block_parallax
+    - field.field.block_content.seeds_accordion.field_seeds_container
+    - field.field.block_content.seeds_accordion.field_seeds_paragraph
+    - responsive_image.styles.seeds_large
+  module:
+    - ds
+    - entity_reference_revisions
+    - responsive_image
+third_party_settings:
+  ds:
+    layout:
+      id: ds_1col
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        wrappers:
+          ds_content: div
+        outer_wrapper: div
+        attributes: ''
+        link_attribute: ''
+        link_custom: ''
+        classes:
+          layout_class: {  }
+    regions:
+      ds_content:
+        - field_seeds_paragraph
+        - field_seeds_background_image
+id: block_content.seeds_accordion.default
+targetEntityType: block_content
+bundle: seeds_accordion
+mode: default
+content:
+  field_seeds_background_image:
+    type: responsive_image
+    weight: 1
+    region: ds_content
+    label: hidden
+    settings:
+      responsive_image_style: seeds_large
+      image_link: ''
+    third_party_settings: {  }
+  field_seeds_paragraph:
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: accordion
+      link: ''
+    third_party_settings:
+      ds:
+        ds_limit: ''
+    type: entity_reference_revisions_entity_view
+    region: ds_content
+hidden:
+  field_seeds_background_color: true
+  field_seeds_block_parallax: true
+  field_seeds_container: true

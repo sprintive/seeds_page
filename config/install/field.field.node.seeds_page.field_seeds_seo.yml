@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_seeds_seo
+    - node.type.seeds_page
+  module:
+    - yoast_seo
+id: node.seeds_page.field_seeds_seo
+field_name: field_seeds_seo
+entity_type: node
+bundle: seeds_page
+label: SEO
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    status: '0'
+    focus_keyword: ''
+    title: null
+    description: null
+default_value_callback: ''
+settings: {  }
+field_type: yoast_seo

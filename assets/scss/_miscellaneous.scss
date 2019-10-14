@@ -1,0 +1,13 @@
+.seeds-page-banner {
+	position: relative;
+	img {
+		width: 100%;
+	}
+	.page-header {
+		border: 0;
+		position: absolute;
+		top: 50%;
+		transform: translate(0,-50%);
+		margin: 0;
+	}
+}

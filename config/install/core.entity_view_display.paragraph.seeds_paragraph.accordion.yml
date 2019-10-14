@@ -1,0 +1,163 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.accordion
+    - field.field.paragraph.seeds_paragraph.field_seeds_image
+    - field.field.paragraph.seeds_paragraph.field_seeds_link
+    - field.field.paragraph.seeds_paragraph.field_seeds_style
+    - field.field.paragraph.seeds_paragraph.field_seeds_text
+    - field.field.paragraph.seeds_paragraph.field_seeds_title
+    - paragraphs.paragraphs_type.seeds_paragraph
+  module:
+    - ds
+    - field_group
+    - layout_builder
+    - link
+    - text
+third_party_settings:
+  ds:
+    layout:
+      id: ds_1col
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        wrappers:
+          ds_content: div
+        outer_wrapper: div
+        attributes: ''
+        link_attribute: ''
+        link_custom: ''
+        classes:
+          layout_class: {  }
+    regions:
+      ds_content:
+        - group_ti
+        - group_content_wrapper
+        - group_wrapper
+        - field_seeds_image
+        - group_b
+        - field_seeds_title
+        - field_seeds_text
+        - field_seeds_link
+  field_group:
+    group_b:
+      children:
+        - field_seeds_text
+        - field_seeds_link
+      parent_name: group_wrapper
+      weight: 3
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: body-wrapper
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Body Wrapper'
+      region: hidden
+    group_wrapper:
+      children:
+        - field_seeds_image
+        - group_b
+      parent_name: group_content_wrapper
+      weight: 2
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: wrapper
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+      label: Wrapper
+      region: hidden
+    group_ti:
+      children:
+        - field_seeds_title
+      parent_name: ''
+      weight: 0
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: title-wrapper
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Title Wrapper'
+      region: hidden
+    group_content_wrapper:
+      children:
+        - group_wrapper
+      parent_name: ''
+      weight: 1
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: seeds_accordion
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Content Wrapper'
+      region: hidden
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.seeds_paragraph.accordion
+targetEntityType: paragraph
+bundle: seeds_paragraph
+mode: accordion
+content:
+  field_seeds_image:
+    type: entity_reference_entity_view
+    weight: 2
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: ds_content
+  field_seeds_link:
+    weight: 6
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: ds_content
+  field_seeds_text:
+    weight: 5
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: ds_content
+  field_seeds_title:
+    weight: 4
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: heading
+    region: ds_content
+hidden:
+  field_seeds_style: true

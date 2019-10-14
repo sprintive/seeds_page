@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: seeds_banner_less_768px
+label: 'Banner Less 768px'
+effects:
+  2e4f741e-a87f-4012-a953-2b1b86a51437:
+    uuid: 2e4f741e-a87f-4012-a953-2b1b86a51437
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 768
+      height: 900
+      crop_type: focal_point

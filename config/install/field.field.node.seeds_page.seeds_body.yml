@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.seeds_body
+    - node.type.seeds_page
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    basic_editor: basic_editor
+    advanced_editor: '0'
+    simple_editor: '0'
+    plain_text: '0'
+id: node.seeds_page.seeds_body
+field_name: seeds_body
+entity_type: node
+bundle: seeds_page
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

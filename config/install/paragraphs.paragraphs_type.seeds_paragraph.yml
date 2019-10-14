@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: seeds_paragraph
+label: Paragraph
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

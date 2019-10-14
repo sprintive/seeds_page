@@ -1,0 +1,5 @@
+seeds_page.config:
+  title: 'Seeds Page'
+  description: 'Manage seeds page configuration.'
+  route_name: seeds_page.seeds_page_form
+  parent: system.admin_config_content

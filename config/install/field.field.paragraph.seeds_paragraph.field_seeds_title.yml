@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_seeds_title
+    - paragraphs.paragraphs_type.seeds_paragraph
+id: paragraph.seeds_paragraph.field_seeds_title
+field_name: field_seeds_title
+entity_type: paragraph
+bundle: seeds_paragraph
+label: Title
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

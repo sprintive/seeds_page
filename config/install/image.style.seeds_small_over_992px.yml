@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: seeds_small_over_992px
+label: 'Small Over 992px'
+effects:
+  3edfe626-847b-4ad2-a76c-557f45287212:
+    uuid: 3edfe626-847b-4ad2-a76c-557f45287212
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 570
+      height: 590
+      crop_type: focal_point
