@@ -32,5 +32,4 @@ dependencies:
   - slick_paragraphs
   - text
   - user
-  - yoast_seo
 package: Seeds
