@@ -92,8 +92,8 @@
     border-radius: 0px;
     margin: 0px; }
     .block-content.block-content--type-seeds-tabs .tabs .tabs-wrapper li:focus, .block-content.block-content--type-seeds-tabs .tabs .tabs-wrapper li:hover {
-      color: #00AAFF;
-      border-color: #00AAFF; }
+      color: #00aaff;
+      border-color: #00aaff; }
 
 .block-content.block-content--type-seeds-tabs .tabs > .field--item {
   display: none; }
@@ -113,25 +113,31 @@
 .block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph .seeds_accordion {
   display: none; }
 
-.block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field--item {
-  margin-bottom: 20px; }
-  .block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field--item .paragraph--type-seeds-paragraph .title-wrapper {
-    cursor: pointer;
-    z-index: 2;
-    position: relative;
-    padding: 10px 15px;
-    border-bottom: 1px solid transparent;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    color: #4D4D4F;
-    background-color: #f5f5f5;
-    border-color: #ddd; }
-    .block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field--item .paragraph--type-seeds-paragraph .title-wrapper h2 {
-      margin: 0; }
-  .block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field--item .paragraph--type-seeds-paragraph .accordion {
-    display: none;
-    z-index: 1;
-    position: relative; }
+.block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field--item .paragraph--type-seeds-paragraph .field--name-field-seeds-title,
+.block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field__item .paragraph--type-seeds-paragraph .field--name-field-seeds-title {
+  margin: 0; }
+
+.block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field--item .paragraph--type-seeds-paragraph .title-wrapper,
+.block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field__item .paragraph--type-seeds-paragraph .title-wrapper {
+  cursor: pointer;
+  z-index: 2;
+  position: relative;
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  color: #4d4d4f;
+  background-color: #f5f5f5;
+  border-color: #ddd; }
+  .block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field--item .paragraph--type-seeds-paragraph .title-wrapper h2,
+  .block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field__item .paragraph--type-seeds-paragraph .title-wrapper h2 {
+    margin: 0; }
+
+.block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field--item .paragraph--type-seeds-paragraph .accordion,
+.block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field__item .paragraph--type-seeds-paragraph .accordion {
+  display: none;
+  z-index: 1;
+  position: relative; }
 
 .seeds-block-paragraph-item .field--name-field-seeds-link {
   margin-top: 15px;
