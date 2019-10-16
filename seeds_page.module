@@ -34,6 +34,13 @@ function seeds_page_theme($existing, $type, $theme, $path) {
       'title' => NULL,
     ],
   ];
+  $templates['seeds_slick_wrapper'] = [
+    'render element' => 'element',
+    'variables' => [
+      'contianer' => NULL,
+    ],
+    'base hook' => 'slick_wrapper',
+  ];
   return $templates;
 }
 
@@ -55,11 +62,16 @@ function seeds_page_help($route_name, RouteMatchInterface $route_match) {
 function seeds_page_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
   /** @var SeedsPageManager $seeds_page_manager */
   $seeds_page_manager = \Drupal::service('seeds_page.manager');
+  $entity = $variables['element']['#object'];
   if (isset($variables['element']['#field_type']) && $variables['element']['#field_type'] == 'entity_reference_revisions') {
-    $entity = $variables['element']['#object'];
     if ($seeds_page_manager->isBlock($entity, 'seeds_tabs')) {
       $suggestions[] = 'seeds_page_field_paragraph__tabs';
     }
+  }
+
+  // Override slick wrapper on block type slider to add a container.
+  if ($hook == "slick_wrapper" && $seeds_page_manager->isBlock($entity) && $entity->field_seeds_container->value) {
+    $suggestions[] = "seeds_slick_wrapper";
   }
 }
 
@@ -228,4 +240,8 @@ function seeds_page_preprocess_seeds_page_field_paragraph__tabs(&$variables) {
     $tabs[] = $paragraph["content"]["#paragraph"]->field_seeds_title->value;
   }
   $variables['tabs'] = $tabs;
+}
+
+function seeds_page_preprocess_seeds_slick_wrapper(&$variables) {
+  $variables['container'] = 'container';
 }
