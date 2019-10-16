@@ -70,7 +70,8 @@
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap; }
+        flex-wrap: wrap;
+    margin: 0 -15px; }
     .block-content.block-content--type-seeds-grid .field--name-field-seeds-paragraph > .field--item {
       margin-bottom: 15px; }
 
@@ -190,60 +191,29 @@
       -ms-flex-direction: row-reverse;
           flex-direction: row-reverse; }
 
-.block-content--type-seeds-accordion .block-teaser-right .wrapper,
-.block-content--type-seeds-accordion .block-teaser-left .wrapper {
+.block-content .block-teaser-right .wrapper,
+.block-content .block-teaser-left .wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap; }
-  .block-content--type-seeds-accordion .block-teaser-right .wrapper .field--name-field-seeds-image,
-  .block-content--type-seeds-accordion .block-teaser-right .wrapper .body-wrapper,
-  .block-content--type-seeds-accordion .block-teaser-left .wrapper .field--name-field-seeds-image,
-  .block-content--type-seeds-accordion .block-teaser-left .wrapper .body-wrapper {
+      flex-wrap: wrap;
+  margin: 0 -15px; }
+  .block-content .block-teaser-right .wrapper .field--name-field-seeds-image,
+  .block-content .block-teaser-right .wrapper .body-wrapper,
+  .block-content .block-teaser-left .wrapper .field--name-field-seeds-image,
+  .block-content .block-teaser-left .wrapper .body-wrapper {
     -webkit-box-flex: 0;
         -ms-flex: 0;
             flex: 0;
     -ms-flex-preferred-size: 50%;
-        flex-basis: 50%; }
-  .block-content--type-seeds-accordion .block-teaser-right .wrapper .body-wrapper,
-  .block-content--type-seeds-accordion .block-teaser-left .wrapper .body-wrapper {
-    padding: 20px; }
+        flex-basis: 50%;
+    padding: 0 15px; }
   @media (max-width: 767px) {
-    .block-content--type-seeds-accordion .block-teaser-right .wrapper .field--name-field-seeds-image,
-    .block-content--type-seeds-accordion .block-teaser-right .wrapper .body-wrapper,
-    .block-content--type-seeds-accordion .block-teaser-left .wrapper .field--name-field-seeds-image,
-    .block-content--type-seeds-accordion .block-teaser-left .wrapper .body-wrapper {
-      -ms-flex-preferred-size: 100%;
-          flex-basis: 100%; } }
-
-.block-content:not(.block-content--type-seeds-accordion) .block-teaser-right,
-.block-content:not(.block-content--type-seeds-accordion) .block-teaser-left {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap; }
-  .block-content:not(.block-content--type-seeds-accordion) .block-teaser-right .field--name-field-seeds-image,
-  .block-content:not(.block-content--type-seeds-accordion) .block-teaser-right .body-wrapper,
-  .block-content:not(.block-content--type-seeds-accordion) .block-teaser-left .field--name-field-seeds-image,
-  .block-content:not(.block-content--type-seeds-accordion) .block-teaser-left .body-wrapper {
-    -webkit-box-flex: 0;
-        -ms-flex: 0;
-            flex: 0;
-    -ms-flex-preferred-size: 50%;
-        flex-basis: 50%; }
-  .block-content:not(.block-content--type-seeds-accordion) .block-teaser-right .body-wrapper,
-  .block-content:not(.block-content--type-seeds-accordion) .block-teaser-left .body-wrapper {
-    padding: 20px; }
-    .block-content:not(.block-content--type-seeds-accordion) .block-teaser-right .body-wrapper .field--name-field-seeds-title h2,
-    .block-content:not(.block-content--type-seeds-accordion) .block-teaser-left .body-wrapper .field--name-field-seeds-title h2 {
-      margin: 0 0 5px 0; }
-  @media (max-width: 767px) {
-    .block-content:not(.block-content--type-seeds-accordion) .block-teaser-right .field--name-field-seeds-image,
-    .block-content:not(.block-content--type-seeds-accordion) .block-teaser-right .body-wrapper,
-    .block-content:not(.block-content--type-seeds-accordion) .block-teaser-left .field--name-field-seeds-image,
-    .block-content:not(.block-content--type-seeds-accordion) .block-teaser-left .body-wrapper {
+    .block-content .block-teaser-right .wrapper .field--name-field-seeds-image,
+    .block-content .block-teaser-right .wrapper .body-wrapper,
+    .block-content .block-teaser-left .wrapper .field--name-field-seeds-image,
+    .block-content .block-teaser-left .wrapper .body-wrapper {
       -ms-flex-preferred-size: 100%;
           flex-basis: 100%; } }
 
