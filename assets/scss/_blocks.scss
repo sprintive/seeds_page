@@ -56,6 +56,12 @@
 }
 
 #paragraph-modal {
+    .field--name-field-seeds-paragraph {
+        display: block;
+    }
+}
+
+#paragraph-modal {
     .modal-body {
         overflow: auto !important;
         padding: 0;
