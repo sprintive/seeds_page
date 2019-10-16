@@ -1,6 +1,9 @@
+uuid: c38aac53-72a5-4da6-8fdc-148cbf774fc3
 langcode: en
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: F-advmFBVqtOS8DqaMuaUhQ2TgGbKxML_Dc8DtNIIgQ
 id: seeds_html
 label: HTML
 revision: 0

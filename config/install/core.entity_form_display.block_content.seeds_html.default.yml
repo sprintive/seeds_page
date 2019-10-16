@@ -1,17 +1,12 @@
+uuid: eeebfb42-4980-4abc-a74c-c086455dc46b
 langcode: en
 status: true
 dependencies:
   config:
     - block_content.type.seeds_html
-    - field.field.block_content.seeds_html.field_seeds_background_color
-    - field.field.block_content.seeds_html.field_seeds_background_image
-    - field.field.block_content.seeds_html.field_seeds_block_parallax
     - field.field.block_content.seeds_html.field_seeds_body
-    - field.field.block_content.seeds_html.field_seeds_container
-    - image.style.thumbnail
   module:
     - field_group
-    - image
     - text
 third_party_settings:
   field_group:
@@ -60,32 +55,13 @@ third_party_settings:
         required_fields: true
       label: Options
       region: content
+_core:
+  default_config_hash: VYQl2rldULbEGOodQwFrP7265V_qrUa58xnmXqz94pg
 id: block_content.seeds_html.default
 targetEntityType: block_content
 bundle: seeds_html
 mode: default
 content:
-  field_seeds_background_color:
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
-  field_seeds_background_image:
-    weight: 2
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-    region: content
-  field_seeds_block_parallax:
-    weight: 5
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_seeds_body:
     weight: 27
     settings:
@@ -93,13 +69,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-    region: content
-  field_seeds_container:
-    weight: 4
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
     region: content
   info:
     type: string_textfield
