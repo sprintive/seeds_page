@@ -32,7 +32,7 @@ function seeds_page_theme($existing, $type, $theme, $path) {
     'variables' => [
       'image' => NULL,
       'title' => NULL,
-    ]
+    ],
   ];
   return $templates;
 }
@@ -73,7 +73,7 @@ function seeds_page_preprocess_page(&$variables) {
   $config = \Drupal::config('seeds_page.config');
   $entity = $seeds_page_manager->getEntityFromCurrentPage();
   // Get the field to render.
-  $field = $config->get('field')?$config->get('field'):'field_image';
+  $field = $config->get('field') ? $config->get('field') : 'field_image';
   // Set the media id.
   if (isset($entity->{$field}->entity)) {
     $media_id = $entity->{$field}->entity->id();
@@ -122,6 +122,12 @@ function seeds_page_preprocess_block(&$variables) {
     // Add tabs library only on tabs block type.
     if ($seeds_page_manager->isBlock($block, 'seeds_tabs')) {
       $variables['#attached']['library'][] = 'seeds_page/tabs';
+    }
+
+    if ($seeds_page_manager->isBlock($block, "seeds_modal")) {
+      if ($block->field_seeds_container->value) {
+        $variables['attributes']['class'][] = "container";
+      }
     }
 
     // Add a unique class.
