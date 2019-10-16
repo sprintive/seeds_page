@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.seeds_page.seeds_body
     - field.field.node.seeds_page.field_seeds_banner
     - field.field.node.seeds_page.layout_builder__layout
+    - field.field.node.seeds_page.seeds_body
     - node.type.seeds_page
   module:
     - field_group
@@ -15,7 +15,7 @@ third_party_settings:
   field_group:
     group_tabs:
       children:
-        - group_basic_information
+        - group_bas
         - group_media
       parent_name: ''
       weight: 1
@@ -26,9 +26,10 @@ third_party_settings:
         direction: horizontal
       label: Tabs
       region: content
-    group_basic_information:
+    group_bas:
       children:
         - seeds_body
+        - field_seeds_seo
       parent_name: group_tabs
       weight: 20
       format_type: tab
@@ -36,7 +37,7 @@ third_party_settings:
         id: ''
         classes: ''
         description: ''
-        formatter: open
+        formatter: closed
         required_fields: true
       label: 'Basic Information'
       region: content
@@ -47,27 +48,18 @@ third_party_settings:
       weight: 21
       format_type: tab
       format_settings:
+        id: ''
+        classes: ''
         description: ''
         formatter: closed
         required_fields: true
-        id: ''
-        classes: ''
-      label: Banner
+      label: Media
       region: content
 id: node.seeds_page.default
 targetEntityType: node
 bundle: seeds_page
 mode: default
 content:
-  seeds_body:
-    type: text_textarea_with_summary
-    weight: 9
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
-    region: content
   created:
     type: datetime_timestamp
     weight: 3
@@ -76,11 +68,11 @@ content:
     third_party_settings: {  }
   field_seeds_banner:
     type: media_library_widget
-    weight: 26
+    weight: 0
+    region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
-    region: content
   path:
     type: path
     weight: 6
@@ -94,11 +86,20 @@ content:
     weight: 4
     region: content
     third_party_settings: {  }
+  seeds_body:
+    type: text_textarea_with_summary
+    weight: 0
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 8
+    weight: 7
     region: content
     third_party_settings: {  }
   sticky:
@@ -124,11 +125,6 @@ content:
       size: 60
       placeholder: ''
     region: content
-    third_party_settings: {  }
-  url_redirects:
-    weight: 7
-    region: content
-    settings: {  }
     third_party_settings: {  }
 hidden:
   layout_builder__layout: true

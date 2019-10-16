@@ -1,4 +1,3 @@
-uuid: eeebfb42-4980-4abc-a74c-c086455dc46b
 langcode: en
 status: true
 dependencies:
@@ -55,8 +54,6 @@ third_party_settings:
         required_fields: true
       label: Options
       region: content
-_core:
-  default_config_hash: VYQl2rldULbEGOodQwFrP7265V_qrUa58xnmXqz94pg
 id: block_content.seeds_html.default
 targetEntityType: block_content
 bundle: seeds_html

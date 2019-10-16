@@ -5,6 +5,8 @@ dependencies:
     - image.style.seeds_small_less_767px
     - image.style.seeds_small_less_992px
     - image.style.seeds_small_over_992px
+  module:
+    - seeds_page
 id: seeds_small
 label: Small
 image_style_mappings:

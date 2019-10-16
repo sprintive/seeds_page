@@ -5,6 +5,8 @@ dependencies:
     - image.style.seeds_medium_less_768px
     - image.style.seeds_medium_less_992px
     - image.style.seeds_medium_over_992_px
+  module:
+    - seeds_page
 id: seeds_medium
 label: Medium
 image_style_mappings:

@@ -5,6 +5,8 @@ dependencies:
     - image.style.seeds_banner_992px
     - image.style.seeds_banner_less_768px
     - image.style.seeds_banner_less_992px
+  module:
+    - seeds_page
 id: seeds_banner
 label: Banner
 image_style_mappings:

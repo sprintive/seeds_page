@@ -2,15 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.seeds_page.seeds_body
     - field.field.node.seeds_page.field_seeds_banner
     - field.field.node.seeds_page.layout_builder__layout
+    - field.field.node.seeds_page.seeds_body
     - node.type.seeds_page
   module:
     - layout_builder
-    - layout_builder_restrictions
     - layout_discovery
-    - text
     - user
 third_party_settings:
   layout_builder:
@@ -21,8 +19,8 @@ third_party_settings:
         layout_id: layout_onecol
         layout_settings: {  }
         components:
-          47e3262c-49b1-4cf5-b72a-f86556baa7ba:
-            uuid: 47e3262c-49b1-4cf5-b72a-f86556baa7ba
+          27233679-a754-4dea-9ec2-307f08fa06af:
+            uuid: 27233679-a754-4dea-9ec2-307f08fa06af
             region: content
             configuration:
               label_display: '0'
@@ -31,51 +29,18 @@ third_party_settings:
               id: 'extra_field_block:node:seeds_page:links'
             additional: {  }
             weight: 0
-          63a12697-18b9-40a1-8da6-2218f49f2198:
-            uuid: 63a12697-18b9-40a1-8da6-2218f49f2198
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:node:seeds_page:seeds_body'
-              formatter:
-                label: hidden
-                type: text_default
-                settings: {  }
-                third_party_settings: {  }
-            additional: {  }
-            weight: 1
         third_party_settings: {  }
-  layout_builder_restrictions:
-    entity_view_mode_restriction:
-      allowed_blocks: {  }
-      allowed_layouts: {  }
 id: node.seeds_page.default
 targetEntityType: node
 bundle: seeds_page
 mode: default
 content:
-  seeds_body:
-    label: hidden
-    type: text_default
-    weight: 101
-    settings: {  }
-    third_party_settings: {  }
-    region: content
-  field_seeds_banner:
-    type: entity_reference_entity_view
-    weight: 102
-    label: above
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
-    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
     region: content
 hidden:
+  field_seeds_banner: true
   layout_builder__layout: true
+  seeds_body: true

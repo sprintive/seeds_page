@@ -26,10 +26,12 @@ dependencies:
   - path
   - responsive_image
   - seeds
+  - seeds_media
   - seeds_page
   - simple_sitemap
   - slick
   - slick_paragraphs
   - text
   - user
+  - yoast_seo
 package: Seeds

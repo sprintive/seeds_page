@@ -1,4 +1,3 @@
-uuid: 7eb71b33-771a-4609-99ce-cf4fd7c422ae
 langcode: en
 status: true
 dependencies:
@@ -29,8 +28,6 @@ third_party_settings:
         - field_seeds_text
         - field_seeds_body
         - field_seeds_background_image
-_core:
-  default_config_hash: xZn-ohJYFmY9pm9WEKzFB17EiOANX6XpAv4uj-n71vU
 id: block_content.seeds_html.default
 targetEntityType: block_content
 bundle: seeds_html

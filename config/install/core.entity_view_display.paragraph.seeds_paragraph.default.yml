@@ -12,6 +12,7 @@ dependencies:
     - ds
     - field_group
     - link
+    - seeds_page
     - text
 third_party_settings:
   ds:

@@ -1,4 +1,3 @@
-uuid: f6a3ab1e-5c29-4fbd-a522-53b0a8a37811
 langcode: en
 status: true
 dependencies:
@@ -14,8 +13,6 @@ third_party_settings:
     basic_editor: '0'
     simple_editor: '0'
     plain_text: '0'
-_core:
-  default_config_hash: PF2qZcAc3ssNVcJfl9E8EiKJ0j0JKKMxzUHUg536yr8
 id: block_content.seeds_html.field_seeds_body
 field_name: field_seeds_body
 entity_type: block_content
