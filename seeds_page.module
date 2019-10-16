@@ -194,6 +194,7 @@ function seeds_page_preprocess_field(&$variables) {
     }
     break;
   case 'field_seeds_paragraph':
+  case 'field_seeds_single_paragraph':
     if ($seeds_page_manager->isBlock($entity, 'seeds_grid')) {
       $desktop = $entity->field_seeds_desktop->value;
       $tablet = $entity->field_seeds_tablet->value;
