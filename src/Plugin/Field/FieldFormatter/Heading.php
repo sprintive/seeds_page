@@ -30,7 +30,7 @@ class Heading extends FormatterBase {
 
   public static function defaultSettings() {
     return [
-      'tag' => 'h1',
+      'tag' => 'h2',
       'class' => '',
     ] + parent::defaultSettings();
   }
