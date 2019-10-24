@@ -1,0 +1,10 @@
+field.formatter.settings.heading:
+  type: mapping
+  label: "Heading formatter settings"
+  mapping:
+    tag:
+      type: string
+      label: "Tag"
+    class:
+      type: string
+      label: "Class"

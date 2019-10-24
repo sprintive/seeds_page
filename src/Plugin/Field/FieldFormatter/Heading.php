@@ -12,7 +12,8 @@ use Drupal\Core\Field\FormatterBase;
  *   id = "heading",
  *   label = @Translation("Heading"),
  *   field_types = {
- *     "string"
+ *     "string",
+ *     "textfield"
  *   }
  * )
  */
@@ -27,6 +28,30 @@ class Heading extends FormatterBase {
     return $summary;
   }
 
+  public static function defaultSettings() {
+    return [
+      'tag' => 'h1',
+      'class' => '',
+    ] + parent::defaultSettings();
+  }
+
+  public function settingsForm(array $form, \Drupal\Core\Form\FormStateInterface $form_state) {
+    $element = parent::settingsForm($form, $form_state);
+    $element['tag'] = [
+      '#type' => 'select',
+      '#title' => "Tag",
+      '#options' => ['h1' => 'H1', 'h2' => 'H2', 'h3' => 'H3'],
+      '#default_value' => $this->getSetting("tag"),
+    ];
+
+    $element['class'] = [
+      '#type' => 'textfield',
+      '#title' => "Class",
+      '#default_value' => $this->getSetting("class"),
+    ];
+    return $element;
+  }
+
   /**
    * {@inheritdoc}
    */
@@ -34,8 +59,15 @@ class Heading extends FormatterBase {
     $element = [];
     foreach ($items as $delta => $item) {
       $value = $item->value;
+      $tag = $this->getSetting("tag");
+      $class = $this->getSetting("class");
       $element[$delta] = [
-        '#markup' => "<h2>$value</h2>",
+        '#type' => 'html_tag',
+        '#tag' => $tag,
+        '#attributes' => [
+          'class' => $class,
+        ],
+        '#value' => $value,
       ];
     }
 
