@@ -17,7 +17,8 @@ third_party_settings:
     sections:
       -
         layout_id: layout_onecol
-        layout_settings: {  }
+        layout_settings:
+          label: ''
         components:
           27233679-a754-4dea-9ec2-307f08fa06af:
             uuid: 27233679-a754-4dea-9ec2-307f08fa06af
@@ -42,5 +43,6 @@ content:
     region: content
 hidden:
   field_seeds_banner: true
+  langcode: true
   layout_builder__layout: true
   seeds_body: true

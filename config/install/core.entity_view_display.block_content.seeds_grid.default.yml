@@ -66,3 +66,4 @@ hidden:
   field_seeds_desktop: true
   field_seeds_mobile: true
   field_seeds_tablet: true
+  langcode: true

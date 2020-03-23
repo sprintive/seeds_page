@@ -70,3 +70,4 @@ hidden:
   field_seeds_background_color: true
   field_seeds_block_parallax: true
   field_seeds_container: true
+  langcode: true

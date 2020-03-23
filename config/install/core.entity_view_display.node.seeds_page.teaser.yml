@@ -31,4 +31,5 @@ content:
 hidden:
   field_seeds_banner: true
   field_seeds_seo: true
+  langcode: true
   layout_builder__layout: true

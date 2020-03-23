@@ -14,3 +14,4 @@ effects:
       width: 992
       height: 500
       crop_type: focal_point
+pipeline: __default__

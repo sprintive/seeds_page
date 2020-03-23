@@ -13,9 +13,10 @@ dependencies:
   - file
   - focal_point
   - image
+  - language
   - layout_builder
-  - layout_builder_restrictions
   - layout_builder_modal
+  - layout_builder_restrictions
   - layout_discovery
   - link
   - media
@@ -36,3 +37,4 @@ dependencies:
   - user
   - yoast_seo
 package: Seeds
+core_incompatible: false

@@ -9,9 +9,9 @@ dependencies:
     - text
 third_party_settings:
   allowed_formats:
-    basic_editor: basic_editor
+    simple_editor: simple_editor
     advanced_editor: '0'
-    simple_editor: '0'
+    basic_editor: '0'
     plain_text: '0'
 id: paragraph.seeds_paragraph.field_seeds_text
 field_name: field_seeds_text

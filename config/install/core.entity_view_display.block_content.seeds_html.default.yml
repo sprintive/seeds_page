@@ -40,4 +40,5 @@ content:
     third_party_settings: {  }
     type: text_default
     region: ds_content
-hidden: {  }
+hidden:
+  langcode: true

@@ -4,5 +4,6 @@ dependencies: {  }
 id: seeds_paragraph
 label: Paragraph
 icon_uuid: null
+icon_default: null
 description: ''
 behavior_plugins: {  }
