@@ -15,6 +15,7 @@ dependencies:
   - image
   - layout_builder
   - layout_builder_restrictions
+  - layout_builder_modal
   - layout_discovery
   - link
   - media
