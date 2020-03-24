@@ -4,56 +4,67 @@ namespace Drupal\seeds_page;
 
 use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\Render\Renderer;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\CurrentRouteMatch;
-use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Config\ConfigFactory;
 
+/**
+ *
+ */
 class SeedsPageManager {
 
   /**
-   * Renderer
+   * Renderer.
    *
-   * @var Renderer
+   * @var \Drupal\Core\Render\Renderer
    */
   protected $renderer;
 
   /**
-   * Image Factory
+   * Image Factory.
    *
-   * @var ImageFactory
+   * @var \Drupal\Core\Image\ImageFactory
    */
   protected $imageFactory;
 
   /**
-   * Image Factory
+   * Image Factory.
    *
-   * @var CurrentRouteMatch
+   * @var \Drupal\Core\Routing\CurrentRouteMatch
    */
   protected $routeMatch;
 
   /**
    * Seeds page configurations.
    *
-   * @var ImmutableConfig
+   * @var \Drupal\Core\Config\ImmutableConfig
    */
   protected $seedsPageConfig;
 
+  /**
+   *
+   */
   public function __construct(Renderer $renderer, ImageFactory $image_factory, CurrentRouteMatch $route_match, ConfigFactory $seeds_page_config) {
     $this->imageFactory = $image_factory;
     $this->renderer = $renderer;
-	$this->routeMatch = $route_match;
-	$this->seedsPageConfig = $seeds_page_config->get('seeds_page.config');
+    $this->routeMatch = $route_match;
+    $this->seedsPageConfig = $seeds_page_config->get('seeds_page.config');
   }
 
+  /**
+   *
+   */
   public static function isParagraph($entity) {
-    return $entity && $entity->getEntityTypeId() == 'paragraph' && $entity->bundle() == 'seeds_paragraph';  
-}
+    return $entity && $entity->getEntityTypeId() == 'paragraph' && $entity->bundle() == 'seeds_paragraph';
+  }
 
+  /**
+   *
+   */
   public static function isBlock($entity, $type = NULL) {
     if ($type) {
       return $entity && $entity->getEntityTypeId() == 'block_content' && $entity->bundle() == $type;
-    } else {
+    }
+    else {
       return $entity && $entity->getEntityTypeId() == 'block_content' && in_array($entity->bundle(), PARAGRAPH_BLOCKS);
     }
   }
@@ -61,21 +72,24 @@ class SeedsPageManager {
   /**
    * Retuns the node or term from current page.
    *
-   * @return EntityInterface
+   * @return \Drupal\Core\Entity\EntityInterface
    */
   public function getEntityFromCurrentPage() {
-	$route_name = $this->routeMatch->getRouteName();
-	$matches = [];
-	$entity_landing = preg_match('/entity\.([\w_]+)\.canonical/',$route_name,$matches);
-	$current_entity_type = $matches[1];
-	$entity = $this->routeMatch->getParameter($current_entity_type);
-	$entity_types = $this->seedsPageConfig->get('entity_types');
-	if($entity_landing && $entity && $entity_types[$current_entity_type][$entity->bundle()]) {
-		return $entity;
-	}
-	return NULL;
+    $route_name = $this->routeMatch->getRouteName();
+    $matches = [];
+    $entity_landing = preg_match('/entity\.([\w_]+)\.canonical/', $route_name, $matches);
+    $current_entity_type = $matches[1];
+    $entity = $this->routeMatch->getParameter($current_entity_type);
+    $entity_types = $this->seedsPageConfig->get('entity_types');
+    if ($entity_landing && $entity && $entity_types[$current_entity_type][$entity->bundle()]) {
+      return $entity;
+    }
+    return NULL;
   }
 
+  /**
+   *
+   */
   public function toResponsiveImage($file, $responsive_image_id) {
     if (!$file) {
       return [];
@@ -89,7 +103,8 @@ class SeedsPageManager {
     if ($image->isValid()) {
       $width = $image->getWidth();
       $height = $image->getHeight();
-    } else {
+    }
+    else {
       $width = $height = NULL;
     }
     $image_build = [
@@ -103,4 +118,5 @@ class SeedsPageManager {
     $responsive_image = $this->renderer->render($image_build);
     return $responsive_image;
   }
+
 }

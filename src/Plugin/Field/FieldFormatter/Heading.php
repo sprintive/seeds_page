@@ -2,6 +2,7 @@
 
 namespace Drupal\seeds_page\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 
@@ -28,6 +29,9 @@ class Heading extends FormatterBase {
     return $summary;
   }
 
+  /**
+   *
+   */
   public static function defaultSettings() {
     return [
       'tag' => 'h2',
@@ -35,7 +39,10 @@ class Heading extends FormatterBase {
     ] + parent::defaultSettings();
   }
 
-  public function settingsForm(array $form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  /**
+   *
+   */
+  public function settingsForm(array $form, FormStateInterface $form_state) {
     $element = parent::settingsForm($form, $form_state);
     $element['tag'] = [
       '#type' => 'select',

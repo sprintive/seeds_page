@@ -6,4 +6,3 @@ seeds_page.seeds_page_form:
     _title: 'Seeds Page'
   requirements:
     _permission: 'administer seeds page'
-  

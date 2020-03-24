@@ -2,6 +2,7 @@
 
 namespace Drupal\seeds_page\Form;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\ConfigFormBase;
@@ -18,24 +19,27 @@ class SeedsPageForm extends ConfigFormBase {
   /**
    * Entity type manager.
    *
-   * @var EntityTypeManager
+   * @var \Drupal\Core\Entity\EntityTypeManager
    */
   protected $entityTypeManager;
 
   /**
    * Router.
    *
-   * @var AccessAwareRouter
+   * @var \Drupal\Core\Routing\AccessAwareRouter
    */
   protected $router;
 
   /**
    * Bundle info.
    *
-   * @var EntityTypeBundleInfo
+   * @var \Drupal\Core\Entity\EntityTypeBundleInfo
    */
   protected $bundleInfo;
 
+  /**
+   *
+   */
   public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager, AccessAwareRouter $router, EntityTypeBundleInfo $bundle_info) {
     parent::__construct($config_factory);
     $this->entityTypeManager = $entity_type_manager;
@@ -43,7 +47,10 @@ class SeedsPageForm extends ConfigFormBase {
     $this->bundleInfo = $bundle_info;
   }
 
-  public static function create(\Symfony\Component\DependencyInjection\ContainerInterface $container) {
+  /**
+   *
+   */
+  public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),
       $container->get('entity_type.manager'),
@@ -59,6 +66,9 @@ class SeedsPageForm extends ConfigFormBase {
     return 'seeds_page_form';
   }
 
+  /**
+   *
+   */
   public function getEditableConfigNames() {
     return 'seeds_page.config';
   }
@@ -78,9 +88,9 @@ class SeedsPageForm extends ConfigFormBase {
       '#title' => $this->t('Default Media'),
       '#description' => $this->t('Select a media image to provide as a default banner.'),
       '#default_value' => $media,
-      '#selection_settings' => array(
-        'target_bundles' => array('image'),
-      ),
+      '#selection_settings' => [
+        'target_bundles' => ['image'],
+      ],
       '#weight' => '0',
     ];
 
@@ -104,7 +114,7 @@ class SeedsPageForm extends ConfigFormBase {
     ];
 
     $entity_types = $this->loadAllEntityTypes();
-    foreach($entity_types as $entity_type_id => $entity_type) {
+    foreach ($entity_types as $entity_type_id => $entity_type) {
       $form['entity_types_wrapper'][$entity_type_id] = [
         '#type' => 'checkboxes',
         '#multiple' => TRUE,
@@ -113,7 +123,6 @@ class SeedsPageForm extends ConfigFormBase {
         '#default_value' => $config->get('entity_types')[$entity_type_id],
       ];
     }
-    
 
     $form['render_banner'] = [
       '#type' => 'checkbox',
@@ -130,6 +139,9 @@ class SeedsPageForm extends ConfigFormBase {
     return $form;
   }
 
+  /**
+   *
+   */
   private function loadAllEntityTypes() {
     $entity_types = [];
     $entity_definitions = \Drupal::entityTypeManager()->getDefinitions();
@@ -140,7 +152,7 @@ class SeedsPageForm extends ConfigFormBase {
         $has_landing_route = $this->router->getRouteCollection()->get($route_name) ? TRUE : FALSE;
         if ($has_landing_route) {
           $bundles = $this->bundleInfo->getBundleInfo($entity_type_id);
-          foreach($bundles as $id => $bundle) {
+          foreach ($bundles as $id => $bundle) {
             $entity_types[$entity_type_id]['bundles'][$id] = $bundle['label'];
           }
           $entity_types[$entity_type_id]['label'] = $entity_definition->getLabel();
@@ -150,20 +162,23 @@ class SeedsPageForm extends ConfigFormBase {
     return $entity_types;
   }
 
+  /**
+   *
+   */
   private function getMediaFields() {
     $filtered_media_fields = [];
     $media_fields = $this->entityTypeManager->getStorage('field_storage_config')->loadByProperties(
-      array(
-        'settings' => array(
+      [
+        'settings' => [
           'target_type' => 'media',
-        ),
+        ],
         'type' => 'entity_reference',
         'deleted' => FALSE,
         'status' => 1,
-      )
+      ]
     );
-    foreach($media_fields as $key => $field) {
-      $field_name = explode('.',$key)[1];
+    foreach ($media_fields as $key => $field) {
+      $field_name = explode('.', $key)[1];
       $filtered_media_fields[$field_name] = $field_name;
     }
     return $filtered_media_fields;
