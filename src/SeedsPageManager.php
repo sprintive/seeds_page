@@ -2,10 +2,10 @@
 
 namespace Drupal\seeds_page;
 
+use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\Render\Renderer;
 use Drupal\Core\Routing\CurrentRouteMatch;
-use Drupal\Core\Config\ConfigFactory;
 
 /**
  *
@@ -63,8 +63,7 @@ class SeedsPageManager {
   public static function isBlock($entity, $type = NULL) {
     if ($type) {
       return $entity && $entity->getEntityTypeId() == 'block_content' && $entity->bundle() == $type;
-    }
-    else {
+    } else {
       return $entity && $entity->getEntityTypeId() == 'block_content' && in_array($entity->bundle(), PARAGRAPH_BLOCKS);
     }
   }
@@ -78,10 +77,14 @@ class SeedsPageManager {
     $route_name = $this->routeMatch->getRouteName();
     $matches = [];
     $entity_landing = preg_match('/entity\.([\w_]+)\.canonical/', $route_name, $matches);
-    $current_entity_type = $matches[1];
+    $current_entity_type = isset($matches[1]) ? $matches[1] : NULL;
+    /** @var \Drupal\Core\Entity\EntityInterface */
     $entity = $this->routeMatch->getParameter($current_entity_type);
     $entity_types = $this->seedsPageConfig->get('entity_types');
-    if ($entity_landing && $entity && $entity_types[$current_entity_type][$entity->bundle()]) {
+    if ($entity) {
+      $seeds_page_entity_types_applied = isset($entity_types[$current_entity_type][$entity->bundle()]) ? $entity_types[$current_entity_type][$entity->bundle()] : NULL;
+    }
+    if ($current_entity_type && $entity_landing && $seeds_page_entity_types_applied) {
       return $entity;
     }
     return NULL;
@@ -103,8 +106,7 @@ class SeedsPageManager {
     if ($image->isValid()) {
       $width = $image->getWidth();
       $height = $image->getHeight();
-    }
-    else {
+    } else {
       $width = $height = NULL;
     }
     $image_build = [

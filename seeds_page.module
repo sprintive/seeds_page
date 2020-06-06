@@ -48,14 +48,14 @@ function seeds_page_theme($existing, $type, $theme, $path) {
  */
 function seeds_page_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
-    // Main module help for the seeds_page module.
-    case 'help.page.seeds_page':
-      $output = '';
-      $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('Provides functionalities to customize the experience in pages using paragraphs') . '</p>';
-      return $output;
+  // Main module help for the seeds_page module.
+  case 'help.page.seeds_page':
+    $output = '';
+    $output .= '<h3>' . t('About') . '</h3>';
+    $output .= '<p>' . t('Provides functionalities to customize the experience in pages using paragraphs') . '</p>';
+    return $output;
 
-    default:
+  default:
   }
 }
 
@@ -65,7 +65,7 @@ function seeds_page_help($route_name, RouteMatchInterface $route_match) {
 function seeds_page_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
   /** @var \Drupal\seeds_page\SeedsPageManager $seeds_page_manager */
   $seeds_page_manager = \Drupal::service('seeds_page.manager');
-  $entity = $variables['element']['#object'];
+  $entity = isset($variables['element']['#object']) ? $variables['element']['#object'] : NULL;
   if (isset($variables['element']['#field_type']) && $variables['element']['#field_type'] == 'entity_reference_revisions') {
     if ($seeds_page_manager->isBlock($entity, 'seeds_tabs')) {
       $suggestions[] = 'seeds_page_field_paragraph__tabs';
@@ -92,8 +92,7 @@ function seeds_page_preprocess_page(&$variables) {
   // Set the media id.
   if (isset($entity->{$field}->entity)) {
     $media_id = $entity->{$field}->entity->id();
-  }
-  else {
+  } else {
     // Get media id from config.
     $media_id = $config->get('media_id');
   }
@@ -170,52 +169,52 @@ function seeds_page_preprocess_field(&$variables) {
   /** @var \Drupal\seeds_page\SeedsPageManager $seeds_page_manager */
   $seeds_page_manager = \Drupal::service('seeds_page.manager');
   switch ($variables["element"]["#field_name"]) {
-    case 'field_seeds_text':
-      if ($seeds_page_manager->isBlock($entity, 'seeds_modal')) {
-        $variables["attributes"]['class'][] = 'btn btn-primary';
-      }
-      break;
+  case 'field_seeds_text':
+    if ($seeds_page_manager->isBlock($entity, 'seeds_modal')) {
+      $variables["attributes"]['class'][] = 'btn btn-primary';
+    }
+    break;
 
-    case 'field_seeds_link':
-      if ($seeds_page_manager->isParagraph($entity)) {
-        $variables["attributes"]['class'][] = 'btn btn-primary';
-      }
-      break;
+  case 'field_seeds_link':
+    if ($seeds_page_manager->isParagraph($entity)) {
+      $variables["attributes"]['class'][] = 'btn btn-primary';
+    }
+    break;
 
-    case 'field_seeds_image':
-      // Render the image field to a responsive image according to its style.
-      if ($seeds_page_manager->isParagraph($entity)) {
-        $file = $entity->field_seeds_image->entity->field_image->entity;
-        switch ($entity->field_seeds_style->value) {
-          case 'block-card':
-            $responsive_image = $seeds_page_manager->toResponsiveImage($file, 'seeds_large');
-            break;
+  case 'field_seeds_image':
+    // Render the image field to a responsive image according to its style.
+    if ($seeds_page_manager->isParagraph($entity)) {
+      $file = $entity->field_seeds_image->entity->field_image->entity;
+      switch ($entity->field_seeds_style->value) {
+      case 'block-card':
+        $responsive_image = $seeds_page_manager->toResponsiveImage($file, 'seeds_large');
+        break;
 
-          case 'block-teaser':
-            $responsive_image = $seeds_page_manager->toResponsiveImage($file, 'seeds_medium');
-            break;
+      case 'block-teaser':
+        $responsive_image = $seeds_page_manager->toResponsiveImage($file, 'seeds_medium');
+        break;
 
-          default:
-            $responsive_image = $seeds_page_manager->toResponsiveImage($file, 'seeds_small');
-        }
-        $variables["items"][0]['content'] = $responsive_image;
+      default:
+        $responsive_image = $seeds_page_manager->toResponsiveImage($file, 'seeds_small');
       }
-      break;
+      $variables["items"][0]['content'] = $responsive_image;
+    }
+    break;
 
-    case 'field_seeds_paragraph':
-    case 'field_seeds_single_paragraph':
-      if ($seeds_page_manager->isBlock($entity, 'seeds_grid')) {
-        $desktop = $entity->field_seeds_desktop->value;
-        $tablet = $entity->field_seeds_tablet->value;
-        $mobile = $entity->field_seeds_mobile->value;
-        foreach ($variables['items'] as &$item) {
-          $item['attributes']->addClass("$desktop $tablet $mobile");
-        }
+  case 'field_seeds_paragraph':
+  case 'field_seeds_single_paragraph':
+    if ($seeds_page_manager->isBlock($entity, 'seeds_grid')) {
+      $desktop = $entity->field_seeds_desktop->value;
+      $tablet = $entity->field_seeds_tablet->value;
+      $mobile = $entity->field_seeds_mobile->value;
+      foreach ($variables['items'] as &$item) {
+        $item['attributes']->addClass("$desktop $tablet $mobile");
       }
-      if ($seeds_page_manager->isBlock($entity)) {
-        $variables['attributes']['class'][] = $entity->field_seeds_container->value ? 'container' : "";
-      }
-      break;
+    }
+    if ($seeds_page_manager->isBlock($entity)) {
+      $variables['attributes']['class'][] = $entity->field_seeds_container->value ? 'container' : "";
+    }
+    break;
   }
 }
 
@@ -251,7 +250,7 @@ function seeds_page_form_alter(array &$form, FormStateInterface $form_state, $fo
  */
 function seeds_page_preprocess_seeds_page_field_paragraph__tabs(&$variables) {
   $tabs = [];
-  $paragraphs = $variables["items"];
+  $paragraphs = isset($variables["items"]) ? $variables["items"] : [];
   foreach ($paragraphs as $paragraph) {
     $tabs[] = $paragraph["content"]["#paragraph"]->field_seeds_title->value;
   }
