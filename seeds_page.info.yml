@@ -38,3 +38,4 @@ dependencies:
   - yoast_seo
 package: Seeds
 core_incompatible: false
+version: '8.x-1.0'
