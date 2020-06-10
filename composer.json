@@ -1,0 +1,11 @@
+{
+    "name": "sprintive/seeds_page",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Sprintive",
+            "email": "webmaster@sprintive.com"
+        }
+    ],
+    "require": {}
+}
