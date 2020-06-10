@@ -1,6 +1,7 @@
 {
     "name": "sprintive/seeds_page",
     "type": "project",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Sprintive",
