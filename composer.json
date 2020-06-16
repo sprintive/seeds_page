@@ -1,6 +1,6 @@
 {
     "name": "sprintive/seeds_page",
-    "type": "project",
+    "type": "drupal-module",
     "minimum-stability": "dev",
     "authors": [
         {
