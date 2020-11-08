@@ -7,6 +7,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\seeds_page\SeedsPageManager;
 
 const PARAGRAPH_BLOCKS = [
   'seeds_html',
@@ -63,17 +64,17 @@ function seeds_page_help($route_name, RouteMatchInterface $route_match) {
  *
  */
 function seeds_page_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
-  /** @var \Drupal\seeds_page\SeedsPageManager $seeds_page_manager */
+  /** @var SeedsPageManager $seeds_page_manager */
   $seeds_page_manager = \Drupal::service('seeds_page.manager');
-  $entity = isset($variables['element']['#object']) ? $variables['element']['#object'] : NULL;
-  if (isset($variables['element']['#field_type']) && $variables['element']['#field_type'] == 'entity_reference_revisions') {
-    if ($seeds_page_manager->isBlock($entity, 'seeds_tabs')) {
+  $entity = $variables['element']['#object'] ?? NULL;
+  if (isset($variables['element']['#field_type']) && $variables['element']['#field_type'] === 'entity_reference_revisions') {
+    if ($seeds_page_manager::isBlock($entity, 'seeds_tabs')) {
       $suggestions[] = 'seeds_page_field_paragraph__tabs';
     }
   }
 
   // Override slick wrapper on block type slider to add a container.
-  if ($hook == "slick_wrapper" && $seeds_page_manager->isBlock($entity) && $entity->field_seeds_container->value) {
+  if ($hook === "slick_wrapper" && $seeds_page_manager::isBlock($entity) && $entity->field_seeds_container->value) {
     $suggestions[] = "seeds_slick_wrapper";
   }
 }
@@ -82,7 +83,7 @@ function seeds_page_theme_suggestions_alter(array &$suggestions, array $variable
  * Implements hook_preprocess_HOOK().
  */
 function seeds_page_preprocess_page(&$variables) {
-  /** @var \Drupal\seeds_page\SeedsPageManager $seeds_page_manager */
+  /** @var SeedsPageManager $seeds_page_manager */
   $seeds_page_manager = \Drupal::service('seeds_page.manager');
   $route_match = \Drupal::routeMatch();
   $config = \Drupal::config('seeds_page.config');
@@ -127,19 +128,19 @@ function seeds_page_preprocess_page(&$variables) {
  * Implements hook_preprocess_HOOK().
  */
 function seeds_page_preprocess_block(&$variables) {
-  $block = isset($variables["content"]["#block_content"]) ? $variables["content"]["#block_content"] : NULL;
-  /** @var \Drupal\seeds_page\SeedsPageManager $seeds_page_manager */
+  $block = $variables["content"]["#block_content"] ?? NULL;
+  /** @var SeedsPageManager $seeds_page_manager */
   $seeds_page_manager = \Drupal::service('seeds_page.manager');
-  if ($seeds_page_manager->isBlock($block)) {
+  if ($seeds_page_manager::isBlock($block)) {
     // Add library on these block types.
     $variables['#attached']['library'][] = 'seeds_page/paragraph_block';
 
     // Add tabs library only on tabs block type.
-    if ($seeds_page_manager->isBlock($block, 'seeds_tabs')) {
+    if ($seeds_page_manager::isBlock($block, 'seeds_tabs')) {
       $variables['#attached']['library'][] = 'seeds_page/tabs';
     }
 
-    if ($seeds_page_manager->isBlock($block, "seeds_modal")) {
+    if ($seeds_page_manager::isBlock($block, "seeds_modal")) {
       if ($block->field_seeds_container->value) {
         $variables['attributes']['class'][] = "container";
       }
@@ -149,14 +150,13 @@ function seeds_page_preprocess_block(&$variables) {
     $variables['attributes']['class'][] = 'seeds-paragraph-block';
 
     // Add parallax class.
-    if ($block->field_seeds_block_parallax->value) {
+    if (isset($block->field_seeds_block_parallax) && $block->field_seeds_block_parallax->value) {
       $variables["attributes"]['class'][] = 'seeds-block-parallax';
     }
 
     // Add background class.
-    $background_class = isset($block->field_seeds_background_color->value) ? $block->field_seeds_background_color->value : NULL;
-    if ($background_class) {
-      $variables["attributes"]['class'][] = $background_class;
+    if (isset($block->field_seeds_background_color) && $block->field_seeds_background_color->value !== '') {
+      $variables["attributes"]['class'][] = $block->field_seeds_background_color->value;
     }
   }
 }
@@ -166,24 +166,24 @@ function seeds_page_preprocess_block(&$variables) {
  */
 function seeds_page_preprocess_field(&$variables) {
   $entity = $variables["element"]["#object"];
-  /** @var \Drupal\seeds_page\SeedsPageManager $seeds_page_manager */
+  /** @var SeedsPageManager $seeds_page_manager */
   $seeds_page_manager = \Drupal::service('seeds_page.manager');
   switch ($variables["element"]["#field_name"]) {
   case 'field_seeds_text':
-    if ($seeds_page_manager->isBlock($entity, 'seeds_modal')) {
+    if ($seeds_page_manager::isBlock($entity, 'seeds_modal')) {
       $variables["attributes"]['class'][] = 'btn btn-primary';
     }
     break;
 
   case 'field_seeds_link':
-    if ($seeds_page_manager->isParagraph($entity)) {
+    if ($seeds_page_manager::isParagraph($entity)) {
       $variables["attributes"]['class'][] = 'btn btn-primary';
     }
     break;
 
   case 'field_seeds_image':
     // Render the image field to a responsive image according to its style.
-    if ($seeds_page_manager->isParagraph($entity)) {
+    if ($seeds_page_manager::isParagraph($entity)) {
       $file = $entity->field_seeds_image->entity->field_image->entity;
       switch ($entity->field_seeds_style->value) {
       case 'block-card':
@@ -203,7 +203,7 @@ function seeds_page_preprocess_field(&$variables) {
 
   case 'field_seeds_paragraph':
   case 'field_seeds_single_paragraph':
-    if ($seeds_page_manager->isBlock($entity, 'seeds_grid')) {
+    if ($seeds_page_manager::isBlock($entity, 'seeds_grid')) {
       $desktop = $entity->field_seeds_desktop->value;
       $tablet = $entity->field_seeds_tablet->value;
       $mobile = $entity->field_seeds_mobile->value;
@@ -211,7 +211,7 @@ function seeds_page_preprocess_field(&$variables) {
         $item['attributes']->addClass("$desktop $tablet $mobile");
       }
     }
-    if ($seeds_page_manager->isBlock($entity)) {
+    if ($seeds_page_manager::isBlock($entity)) {
       $variables['attributes']['class'][] = $entity->field_seeds_container->value ? 'container' : "";
     }
     break;
@@ -222,15 +222,20 @@ function seeds_page_preprocess_field(&$variables) {
  * Implements hook_preprocess_HOOK().
  */
 function seeds_page_preprocess_ds_1col(&$variables) {
-  /** @var \Drupal\seeds_page\SeedsPageManager $seeds_page_manager */
+  /** @var SeedsPageManager $seeds_page_manager */
   $seeds_page_manager = \Drupal::service('seeds_page.manager');
-  $paragraph = isset($variables["content"]["#paragraph"]) ? $variables["content"]["#paragraph"] : NULL;
-  if ($seeds_page_manager->isParagraph($paragraph)) {
+  $paragraph = $variables["content"]["#paragraph"] ?? NULL;
+  if ($seeds_page_manager::isParagraph($paragraph)) {
     // Add a general class for all paragraph styles.
     $variables["attributes"]['class'][] = "seeds-block-paragraph-item";
     if ($style = $paragraph->field_seeds_style->value) {
       // Add a custom class.
       $variables["attributes"]['class'][] = $style;
+    }
+    // Add 'no-image' class if image is not set
+    if ($paragraph->field_seeds_image->isEmpty()) {
+      // Add a custom class.
+      $variables["attributes"]['class'][] = 'no-image';
     }
   }
 }
@@ -250,7 +255,7 @@ function seeds_page_form_alter(array &$form, FormStateInterface $form_state, $fo
  */
 function seeds_page_preprocess_seeds_page_field_paragraph__tabs(&$variables) {
   $tabs = [];
-  $paragraphs = isset($variables["items"]) ? $variables["items"] : [];
+  $paragraphs = $variables["items"] ?? [];
   foreach ($paragraphs as $paragraph) {
     $tabs[] = $paragraph["content"]["#paragraph"]->field_seeds_title->value;
   }

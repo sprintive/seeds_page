@@ -4,8 +4,6 @@ dependencies:
   config:
     - block_content.type.seeds_modal
     - field.field.block_content.seeds_modal.field_seeds_background_color
-    - field.field.block_content.seeds_modal.field_seeds_background_image
-    - field.field.block_content.seeds_modal.field_seeds_block_parallax
     - field.field.block_content.seeds_modal.field_seeds_container
     - field.field.block_content.seeds_modal.field_seeds_paragraph
     - field.field.block_content.seeds_modal.field_seeds_text
@@ -46,10 +44,8 @@ third_party_settings:
       region: content
     group_options:
       children:
-        - field_seeds_background_image
         - field_seeds_background_color
         - field_seeds_container
-        - field_seeds_block_parallax
       parent_name: group_tabs
       weight: 21
       format_type: tab
@@ -71,21 +67,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
-    region: content
-  field_seeds_background_image:
-    weight: 28
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-    region: content
-  field_seeds_block_parallax:
-    weight: 31
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
     region: content
   field_seeds_container:
     weight: 30
