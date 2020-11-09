@@ -50,6 +50,9 @@
 
 // Modal Block
 .block-content--type-seeds-modal {
+  .contextual{
+    display: none;
+  }
   .field--name-field-seeds-paragraph {
     display: none;
   }
