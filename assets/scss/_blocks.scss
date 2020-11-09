@@ -41,11 +41,11 @@
 }
 
 .seeds-primary {
-  background-color: #c7c6c6;
+  background-color: $seeds-page-primary;
 }
 
 .seeds-secondary {
-  background-color: #f9f9f9;
+  background-color: $seeds-page-secondary;
 }
 
 // Modal Block
@@ -56,7 +56,7 @@
 }
 
 #paragraph-modal {
-  background-color: #fff;
+  background-color: $white;
   .field--name-field-seeds-paragraph {
     display: block;
   }
@@ -95,8 +95,8 @@
 
           &:focus,
           &:hover {
-            color: #00aaff;
-            border-color: #00aaff;
+            color: $seeds-page-blue;
+            border-color: $seeds-page-blue;
           }
         }
       }
@@ -139,9 +139,9 @@
             position: relative;
             padding: 10px 15px;
             border-bottom: 1px solid transparent;
-            color: #4d4d4f;
-            background-color: #f5f5f5;
-            border-color: #ddd;
+            color: $seeds;
+            background-color: $white;
+            border-color: $gray;
             h2 {
               margin: 0;
             }

@@ -7,7 +7,7 @@
     a {
       padding: 6px 12px;
       display: inline-block;
-      color: white;
+      color: $white;
 
       &:hover,
       &:active,
@@ -49,10 +49,10 @@
 
     .field--name-field-seeds-title,
     .field--name-field-seeds-text {
-      color: white;
+      color: $white;
 
       h2 {
-        color: white;
+        color: $white;
       }
     }
   }

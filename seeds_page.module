@@ -32,6 +32,7 @@ function seeds_page_theme($existing, $type, $theme, $path) {
     'variables' => [
       'image' => NULL,
       'title' => NULL,
+      'show_title' => NULL
     ],
   ];
   $templates['seeds_slick_wrapper'] = [
@@ -89,7 +90,7 @@ function seeds_page_preprocess_page(&$variables) {
   $config = \Drupal::config('seeds_page.config');
   $entity = $seeds_page_manager->getEntityFromCurrentPage();
   // Get the field to render.
-  $field = $config->get('field') ? $config->get('field') : 'field_image';
+  $field = $config->get('field') ?: 'field_image';
   // Set the media id.
   if (isset($entity->{$field}->entity)) {
     $media_id = $entity->{$field}->entity->id();
@@ -109,7 +110,9 @@ function seeds_page_preprocess_page(&$variables) {
     $variables['seeds_banner'] = [
       'image' => $responsive_image,
       'page_title' => $page_title,
+      'show_title' => $config->get('show_title'),
     ];
+
     // Render the image if it is allowed.
     $render_the_banner = $config->get('render_banner');
     if ($render_the_banner) {
@@ -117,6 +120,7 @@ function seeds_page_preprocess_page(&$variables) {
         '#theme' => 'seeds_banner',
         '#image' => $responsive_image,
         '#title' => $page_title,
+        '#show_title' => $config->get('show_title'),
       ];
       $content = $variables["page"]["content"];
       $variables["page"]["content"] = ['seeds-banner' => $banner] + $content;

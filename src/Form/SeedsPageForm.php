@@ -131,6 +131,13 @@ class SeedsPageForm extends ConfigFormBase {
       '#default_value' => $config->get('render_banner'),
     ];
 
+    $form['show_title'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Show Title'),
+      '#description' => $this->t('If you don\'t want to show title, uncheck this option.'),
+      '#default_value' => $config->get('show_title'),
+    ];
+
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Submit'),
@@ -198,6 +205,7 @@ class SeedsPageForm extends ConfigFormBase {
     $config = $this->configFactory->getEditable('seeds_page.config');
     $config->set('media_id', $form_state->getValue('media'));
     $config->set('render_banner', $form_state->getValue('render_banner'));
+    $config->set('show_title', $form_state->getValue('show_title'));
     $config->set('entity_types', $form_state->getValue('entity_types_wrapper'));
     $config->set('field', $form_state->getValue('field'));
 
