@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.large_left_teaser
+label: 'Large Left Teaser'
+targetEntityType: media
+cache: true

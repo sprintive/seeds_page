@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.vertical_card
+label: 'Vertical Card'
+targetEntityType: media
+cache: true
