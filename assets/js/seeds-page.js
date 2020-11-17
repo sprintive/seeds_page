@@ -11,7 +11,8 @@
                     var modalWrapper = $('<div id="paragraph-modal"></div>');
                     $("body").append(modalWrapper);
                     modalWrapper.html(paragraph.clone());
-                    var myDialog = Drupal.dialog(modalWrapper, {
+                    var myDialog = modalWrapper.dialog( {
+                        autoOpen: true,
                         title: "",
                         width: "auto",
                         dialogClass: 'seeds-modal-dialog container',
@@ -20,7 +21,6 @@
                             modalWrapper.remove();
                         }
                     });
-                    myDialog.showModal();
                     modalWrapper.find(".modal-footer").remove();
                 });
 

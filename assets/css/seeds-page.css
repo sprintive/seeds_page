@@ -70,13 +70,12 @@
             user-select: none;
     display: inline-block;
     padding: 10px 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #DDD;
     cursor: pointer;
     border-radius: 0px;
     margin: 0px; }
     .block-content.block-content--type-seeds-tabs .tabs .tabs-wrapper li:focus, .block-content.block-content--type-seeds-tabs .tabs .tabs-wrapper li:hover {
-      color: #00AAFF;
-      border-color: #00AAFF; }
+      color: #00AAFF; }
 
 .block-content.block-content--type-seeds-tabs .tabs > .field--item {
   display: none; }
@@ -102,6 +101,7 @@
 
 .block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field--item .paragraph--type-seeds-paragraph .title-wrapper,
 .block-content.block-content--type-seeds-accordion .field--name-field-seeds-paragraph > .field__item .paragraph--type-seeds-paragraph .title-wrapper {
+  width: 100%;
   cursor: pointer;
   z-index: 2;
   position: relative;
@@ -179,8 +179,7 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  margin: 0 -15px; }
+      flex-wrap: wrap; }
   .block-content .block-teaser-right .field--name-field-seeds-image,
   .block-content .block-teaser-right .body-wrapper,
   .block-content .block-teaser-left .field--name-field-seeds-image,

@@ -91,7 +91,7 @@
           user-select: none;
           display: inline-block;
           padding: 10px 20px;
-          border: 1px solid #ddd;
+          border: 1px solid $gray;
           cursor: pointer;
           border-radius: 0px;
           margin: 0px;
@@ -99,7 +99,6 @@
           &:focus,
           &:hover {
             color: $seeds-page-blue;
-            border-color: $seeds-page-blue;
           }
         }
       }
@@ -137,6 +136,7 @@
             margin: 0;
           }
           .title-wrapper {
+            width: 100%;
             cursor: pointer;
             z-index: 2;
             position: relative;
