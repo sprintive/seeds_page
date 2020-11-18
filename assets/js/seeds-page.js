@@ -13,6 +13,8 @@
                     modalWrapper.html(paragraph.clone());
                     var myDialog = modalWrapper.dialog( {
                         autoOpen: true,
+                        modal: true,
+                        draggable: false,
                         title: "",
                         width: "auto",
                         dialogClass: 'seeds-modal-dialog container',
