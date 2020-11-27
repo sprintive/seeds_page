@@ -89,6 +89,7 @@ function seeds_page_preprocess_page(&$variables) {
   $route_match = \Drupal::routeMatch();
   $config = \Drupal::config('seeds_page.config');
   $entity = $seeds_page_manager->getEntityFromCurrentPage();
+  $always_render_banner = $config->get('always_render_banner');
   // Get the field to render.
   $field = $config->get('field') ?: 'field_image';
   // Set the media id.
@@ -98,7 +99,7 @@ function seeds_page_preprocess_page(&$variables) {
     // Get media id from config.
     $media_id = $config->get('media_id');
   }
-  if ($entity && $media_id) {
+  if (($entity || $always_render_banner) && $media_id) {
     // Get the file from the media.
     $file = \Drupal::entityTypeManager()->getStorage('media')->load($media_id)->field_image->entity;
     // Render to responsive image.

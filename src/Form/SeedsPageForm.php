@@ -2,14 +2,14 @@
 
 namespace Drupal\seeds_page\Form;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\ContentEntityType;
+use Drupal\Core\Entity\EntityTypeBundleInfo;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\AccessAwareRouter;
-use Drupal\Core\Entity\ContentEntityType;
-use Drupal\Core\Entity\EntityTypeBundleInfo;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class SeedsPageForm.
@@ -107,10 +107,21 @@ class SeedsPageForm extends ConfigFormBase {
       '#default_value' => $config->get('field'),
     ];
 
+    $form['always_render_banner'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Always render the banner'),
+      '#default_value' => $config->get('always_render_banner'),
+    ];
+
     $form['entity_types_wrapper'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Bundles'),
       '#tree' => TRUE,
+      '#states' => [
+        'visible' => [
+          'input[name="always_render_banner"' => ['checked' => FALSE],
+        ],
+      ],
     ];
 
     $entity_types = $this->loadAllEntityTypes();
@@ -208,6 +219,7 @@ class SeedsPageForm extends ConfigFormBase {
     $config->set('show_title', $form_state->getValue('show_title'));
     $config->set('entity_types', $form_state->getValue('entity_types_wrapper'));
     $config->set('field', $form_state->getValue('field'));
+    $config->set('always_render_banner',$form_state->getValue('always_render_banner'));
 
     $config->save();
     return parent::submitForm($form, $form_state);
