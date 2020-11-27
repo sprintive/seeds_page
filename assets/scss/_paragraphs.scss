@@ -76,9 +76,27 @@
 
 .block-teaser-right {
   flex-direction: row-reverse;
+
+  .seeds_accordion{
+    .wrapper{
+      flex-direction: row-reverse;
+
+      .body-wrapper{
+        text-align: end;
+      }
+    }
+  }
 }
 
 .block-content {
+  .seeds_accordion{
+    width: 100%;
+    .wrapper{
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
   .block-teaser-right,
   .block-teaser-left {
     display: flex;

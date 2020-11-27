@@ -172,6 +172,22 @@
   -webkit-box-direction: reverse;
       -ms-flex-direction: row-reverse;
           flex-direction: row-reverse; }
+  .block-teaser-right .seeds_accordion .wrapper {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse; }
+    .block-teaser-right .seeds_accordion .wrapper .body-wrapper {
+      text-align: end; }
+
+.block-content .seeds_accordion {
+  width: 100%; }
+  .block-content .seeds_accordion .wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap; }
 
 .block-content .block-teaser-right,
 .block-content .block-teaser-left {
