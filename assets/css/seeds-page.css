@@ -1,6 +1,5 @@
 .seeds-paragraph-block {
-  position: relative;
-  overflow: hidden; }
+  position: relative; }
   .seeds-paragraph-block > .block-content {
     padding: 30px 0; }
   .seeds-paragraph-block .field--name-field-seeds-background-image {
@@ -159,8 +158,10 @@
       .block-card .body-wrapper .field--name-field-seeds-title h2,
       .block-card .body-wrapper .field--name-field-seeds-text h2 {
         color: #FFF; }
-  .block-card.no-image .body-wrapper {
-    position: unset; }
+  .block-card.no-image .seeds_accordion {
+    background-color: #c7c6c6; }
+    .block-card.no-image .seeds_accordion .body-wrapper {
+      position: unset; }
 
 .block-teaser .field {
   margin-bottom: 10px; }

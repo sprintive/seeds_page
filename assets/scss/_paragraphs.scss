@@ -58,8 +58,12 @@
   }
 
   &.no-image{
-    .body-wrapper{
-      position: unset;
+    .seeds_accordion{
+      background-color: $seeds-page-primary;
+
+      .body-wrapper{
+        position: unset;
+      }
     }
   }
 }
