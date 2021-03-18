@@ -158,9 +158,10 @@
       .block-card .body-wrapper .field--name-field-seeds-title h2,
       .block-card .body-wrapper .field--name-field-seeds-text h2 {
         color: #FFF; }
-  .block-card.no-image .seeds_accordion {
-    background-color: #c7c6c6; }
-    .block-card.no-image .seeds_accordion .body-wrapper {
+  .block-card.no-image {
+    background-color: #c7c6c6;
+    height: 100%; }
+    .block-card.no-image .body-wrapper {
       position: unset; }
 
 .block-teaser .field {
@@ -188,7 +189,8 @@
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap; }
+        flex-wrap: wrap;
+    position: relative; }
 
 .block-content .block-teaser-right,
 .block-content .block-teaser-left {
