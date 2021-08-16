@@ -16,24 +16,31 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class SeedsPageForm extends ConfigFormBase {
 
+  public const ACCEPTED_ENTITIES = [
+      'node',
+      'media',
+      'taxonomy_term',
+      'user'
+  ];
+
   /**
    * Entity type manager.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManager
+   * @var EntityTypeManager $entityTypeManager
    */
   protected $entityTypeManager;
 
   /**
    * Router.
    *
-   * @var \Drupal\Core\Routing\AccessAwareRouter
+   * @var AccessAwareRouter $router
    */
   protected $router;
 
   /**
    * Bundle info.
    *
-   * @var \Drupal\Core\Entity\EntityTypeBundleInfo
+   * @var EntityTypeBundleInfo $bundleInfo
    */
   protected $bundleInfo;
 
@@ -52,10 +59,10 @@ class SeedsPageForm extends ConfigFormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('config.factory'),
-      $container->get('entity_type.manager'),
-      $container->get('router'),
-      $container->get('entity_type.bundle.info')
+        $container->get('config.factory'),
+        $container->get('entity_type.manager'),
+        $container->get('router'),
+        $container->get('entity_type.bundle.info')
     );
   }
 
@@ -70,7 +77,7 @@ class SeedsPageForm extends ConfigFormBase {
    *
    */
   public function getEditableConfigNames() {
-    return 'seeds_page.config';
+    return ['seeds_page.config'];
   }
 
   /**
@@ -80,78 +87,80 @@ class SeedsPageForm extends ConfigFormBase {
     $config = $this->config('seeds_page.config');
     $media = $this->entityTypeManager->getStorage('media')->load($config->get('media_id'));
     $form['media_wrapper'] = [
-      '#type' => 'container',
+        '#type' => 'container',
     ];
     $form['media_wrapper']['media'] = [
-      '#type' => 'entity_autocomplete',
-      '#target_type' => 'media',
-      '#title' => $this->t('Default Media'),
-      '#description' => $this->t('Select a media image to provide as a default banner.'),
-      '#default_value' => $media,
-      '#selection_settings' => [
-        'target_bundles' => ['image'],
-      ],
-      '#weight' => '0',
+        '#type' => 'entity_autocomplete',
+        '#target_type' => 'media',
+        '#title' => $this->t('Default Media'),
+        '#description' => $this->t('Select a media image to provide as a default banner.'),
+        '#default_value' => $media,
+        '#selection_settings' => [
+            'target_bundles' => ['image'],
+        ],
+        '#weight' => '0',
     ];
 
     $form['media_wrapper']['html'] = [
-      '#markup' => 'Use the following varaibles in preprocess page:
+        '#markup' => 'Use the following variables in preprocess page:
       <ul><li>seeds_banner.image</li><li>seeds_banner.page_title</li></ul>
       ',
     ];
 
     $form['field'] = [
-      '#type' => 'select',
-      '#title' => $this->t("Field to Render"),
-      '#options' => $this->getMediaFields(),
-      '#default_value' => $config->get('field'),
+        '#type' => 'select',
+        '#title' => $this->t("Field to Render"),
+        '#options' => $this->getMediaFields(),
+        '#default_value' => $config->get('field'),
     ];
 
     $form['always_render_banner'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Always render the banner'),
-      '#default_value' => $config->get('always_render_banner'),
+        '#type' => 'checkbox',
+        '#title' => $this->t('Always render the banner'),
+        '#default_value' => $config->get('always_render_banner'),
     ];
 
     $form['entity_types_wrapper'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Bundles'),
-      '#tree' => TRUE,
-      '#states' => [
-        'visible' => [
-          'input[name="always_render_banner"' => ['checked' => FALSE],
+        '#type' => 'fieldset',
+        '#title' => $this->t('Bundles'),
+        '#tree' => TRUE,
+        '#states' => [
+            'visible' => [
+                'input[name="always_render_banner"' => ['checked' => FALSE],
+            ],
         ],
-      ],
     ];
 
     $entity_types = $this->loadAllEntityTypes();
     foreach ($entity_types as $entity_type_id => $entity_type) {
-      $form['entity_types_wrapper'][$entity_type_id] = [
-        '#type' => 'checkboxes',
-        '#multiple' => TRUE,
-        '#title' => $entity_type['label'],
-        '#options' => $entity_type['bundles'],
-        '#default_value' => $config->get('entity_types')[$entity_type_id],
-      ];
+      if(in_array($entity_type_id, self::ACCEPTED_ENTITIES, TRUE)){
+        $form['entity_types_wrapper'][$entity_type_id] = [
+            '#type' => 'checkboxes',
+            '#multiple' => TRUE,
+            '#title' => $entity_type['label'],
+            '#options' => $entity_type['bundles'],
+            '#default_value' => $config->get('entity_types')[$entity_type_id],
+        ];
+      }
     }
 
     $form['render_banner'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Render The Banner'),
-      '#description' => $this->t('If you don\'t want to use twig, use this option to let the module render the banner.'),
-      '#default_value' => $config->get('render_banner'),
+        '#type' => 'checkbox',
+        '#title' => $this->t('Render The Banner'),
+        '#description' => $this->t('If you don\'t want to use twig, use this option to let the module render the banner.'),
+        '#default_value' => $config->get('render_banner'),
     ];
 
     $form['show_title'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Show Title'),
-      '#description' => $this->t('If you don\'t want to show title, uncheck this option.'),
-      '#default_value' => $config->get('show_title'),
+        '#type' => 'checkbox',
+        '#title' => $this->t('Show Title'),
+        '#description' => $this->t('If you don\'t want to show title, uncheck this option.'),
+        '#default_value' => $config->get('show_title'),
     ];
 
     $form['submit'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Submit'),
+        '#type' => 'submit',
+        '#value' => $this->t('Submit'),
     ];
 
     return $form;
@@ -167,7 +176,7 @@ class SeedsPageForm extends ConfigFormBase {
       if ($entity_definition instanceof ContentEntityType) {
         // Check if the entity has a landing page by checking its route.
         $route_name = "entity.$entity_type_id.canonical";
-        $has_landing_route = $this->router->getRouteCollection()->get($route_name) ? TRUE : FALSE;
+        $has_landing_route = $this->router->getRouteCollection()->get($route_name);
         if ($has_landing_route) {
           $bundles = $this->bundleInfo->getBundleInfo($entity_type_id);
           foreach ($bundles as $id => $bundle) {
@@ -186,14 +195,14 @@ class SeedsPageForm extends ConfigFormBase {
   private function getMediaFields() {
     $filtered_media_fields = [];
     $media_fields = $this->entityTypeManager->getStorage('field_storage_config')->loadByProperties(
-      [
-        'settings' => [
-          'target_type' => 'media',
-        ],
-        'type' => 'entity_reference',
-        'deleted' => FALSE,
-        'status' => 1,
-      ]
+        [
+            'settings' => [
+                'target_type' => 'media',
+            ],
+            'type' => 'entity_reference',
+            'deleted' => FALSE,
+            'status' => 1,
+        ]
     );
     foreach ($media_fields as $key => $field) {
       $field_name = explode('.', $key)[1];
@@ -222,7 +231,7 @@ class SeedsPageForm extends ConfigFormBase {
     $config->set('always_render_banner',$form_state->getValue('always_render_banner'));
 
     $config->save();
-    return parent::submitForm($form, $form_state);
+    parent::submitForm($form, $form_state);
   }
 
 }

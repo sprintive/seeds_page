@@ -180,12 +180,6 @@ function seeds_page_preprocess_field(&$variables) {
       }
       break;
 
-    case 'field_seeds_link':
-      if ($seeds_page_manager::isParagraph($entity)) {
-        $variables["attributes"]['class'][] = 'btn btn-primary';
-      }
-      break;
-
     case 'field_seeds_image':
       // Render the image field to a responsive image according to its style.
       if ($seeds_page_manager::isParagraph($entity)) {
