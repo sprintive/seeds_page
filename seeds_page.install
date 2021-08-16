@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+
+function seeds_page_install() {
+  // Attack SEO field to 'Seeds Page' content type.
+  $yoast_seo_manager = \Drupal::service('yoast_seo.manager');
+  $yoast_seo_manager->attachYoastSeoFields('node', 'seeds_page');
+}
