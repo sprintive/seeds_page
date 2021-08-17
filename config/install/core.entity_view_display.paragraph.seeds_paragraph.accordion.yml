@@ -13,7 +13,7 @@ dependencies:
     - ds
     - field_group
     - layout_builder
-    - link
+    - button_formatter
     - seeds_page
     - text
 third_party_settings:
@@ -138,13 +138,16 @@ content:
     weight: 6
     label: hidden
     settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
+      style: btn-primary
+      icon: '<i class="fa fa-file" aria-hidden="true"></i>'
+      custom_label: ''
+      show_icon: false
+      new_tab: false
+      show_custom_label: 0
+      download: false
+      show_description: false
     third_party_settings: {  }
-    type: link
+    type: button_formatter
     region: ds_content
   field_seeds_text:
     weight: 5
