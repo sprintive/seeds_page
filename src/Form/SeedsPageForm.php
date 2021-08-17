@@ -9,19 +9,13 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\AccessAwareRouter;
+use Drupal\seeds_page\SeedsPageManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class SeedsPageForm.
  */
 class SeedsPageForm extends ConfigFormBase {
-
-  public const ACCEPTED_ENTITIES = [
-      'node',
-      'media',
-      'taxonomy_term',
-      'user'
-  ];
 
   /**
    * Entity type manager.
@@ -45,13 +39,21 @@ class SeedsPageForm extends ConfigFormBase {
   protected $bundleInfo;
 
   /**
+   * Seeds Page Manager.
+   *
+   * @var SeedsPageManager $seedsPageManager
+   */
+  protected $seedsPageManager;
+
+  /**
    *
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager, AccessAwareRouter $router, EntityTypeBundleInfo $bundle_info) {
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager, AccessAwareRouter $router, EntityTypeBundleInfo $bundle_info, SeedsPageManager $seeds_page_manager) {
     parent::__construct($config_factory);
     $this->entityTypeManager = $entity_type_manager;
     $this->router = $router;
     $this->bundleInfo = $bundle_info;
+    $this->seedsPageManager = $seeds_page_manager;
   }
 
   /**
@@ -62,7 +64,8 @@ class SeedsPageForm extends ConfigFormBase {
         $container->get('config.factory'),
         $container->get('entity_type.manager'),
         $container->get('router'),
-        $container->get('entity_type.bundle.info')
+        $container->get('entity_type.bundle.info'),
+        $container->get('seeds_page.manager')
     );
   }
 
@@ -133,7 +136,7 @@ class SeedsPageForm extends ConfigFormBase {
 
     $entity_types = $this->loadAllEntityTypes();
     foreach ($entity_types as $entity_type_id => $entity_type) {
-      if(in_array($entity_type_id, self::ACCEPTED_ENTITIES, TRUE)){
+      if($this->seedsPageManager->isAcceptedEntity($entity_type_id)){
         $form['entity_types_wrapper'][$entity_type_id] = [
             '#type' => 'checkboxes',
             '#multiple' => TRUE,
