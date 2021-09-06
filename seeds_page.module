@@ -8,6 +8,8 @@
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\seeds_page\SeedsPageManager;
+use Drupal\node\Entity\Node;
+
 
 const PARAGRAPH_BLOCKS = [
   'seeds_html',
@@ -105,16 +107,16 @@ function seeds_page_preprocess_page(&$variables) {
     $media_id = $config->get('media_id');
   }
   if (($entity || $always_render_banner) && $media_id) {
-    // Get the file from the media.
-    $file = \Drupal::entityTypeManager()->getStorage('media')->load($media_id)->field_image->entity;
-    // Render to responsive image.
-    $responsive_image = $seeds_page_manager->toResponsiveImage($file, 'seeds_banner');
+    // Load media from media id.
+    $media = \Drupal::entityTypeManager()->getStorage('media')->load($media_id);
+    // Render media using banner view mode.
+    $image_builder = \Drupal::entityTypeManager()->getViewBuilder('media')->view($media, 'seeds_banner');
     // Get the page title.
     $request = \Drupal::request();
     $page_title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
     // Set it in the variables.
     $variables['seeds_banner'] = [
-      'image' => $responsive_image,
+      'image' => $image_builder,
       'page_title' => $page_title,
       'show_title' => $config->get('show_title'),
     ];
@@ -124,7 +126,7 @@ function seeds_page_preprocess_page(&$variables) {
     if ($render_the_banner) {
       $banner = [
         '#theme' => 'seeds_banner',
-        '#image' => $responsive_image,
+        '#image' => $image_builder,
         '#title' => $page_title,
         '#show_title' => $config->get('show_title'),
       ];
@@ -272,4 +274,34 @@ function seeds_page_preprocess_seeds_page_field_paragraph__tabs(&$variables) {
  */
 function seeds_page_preprocess_seeds_slick_wrapper(&$variables) {
   $variables['container'] = 'container';
+}
+
+/**
+ * Implementation of hook_token_info().
+ */
+function seeds_page_token_info() {
+  $tokens['tokens']['site']['node'] = [
+      'name' => 'Node By ID',
+      'description' => 'Gets a node with the ID',
+      'dynamic' => TRUE,
+      'type'=>'node',
+  ];
+  return $tokens;
+}
+
+function seeds_page_tokens($type, $tokens, array $data, array $options, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata) {
+  $replacements = [];
+  if ('site' == $type && ($node_tokens = \Drupal::token()->findWithPrefix($tokens, 'node'))) {
+     foreach ($node_tokens as $key => $node_token) {
+      $explode = explode(':', $key);
+      $nid = $explode[0];
+      $node = Node::load($nid);
+      $node_token = [$explode[1] => $node_token];
+      if ($node) {
+          $bubbleable_metadata->addCacheableDependency($node);
+          $replacements += \Drupal::token()->generate('node', $node_token, ['node' => $node], $options, $bubbleable_metadata);
+      }
+    }
+  }
+  return $replacements;
 }

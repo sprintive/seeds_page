@@ -37,6 +37,7 @@ dependencies:
   - text
   - user
   - yoast_seo
+  - responsive_image_preload
 package: Seeds
 core_incompatible: false
 version: '8.x-1.0'
