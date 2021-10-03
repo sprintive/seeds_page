@@ -17,8 +17,8 @@
 	$()
       $(".seeds-paragraph-block .tabs .tabs-wrapper li").once('seedsTabs').each(function() {
         $(this).click(function() {
-          $(".seeds-paragraph-block .tabs>.field--item").removeClass("seeds-expand");
-          $(".seeds-paragraph-block .tabs>.field--item:eq(" + $(this).index() + ")").addClass(
+          $(this).parents(".tabs").find(">.field--item").removeClass("seeds-expand");
+          $(this).parents(".tabs").find(`>.field--item:eq("${$(this).index()}")`).addClass(
             "seeds-expand"
           );
         });
