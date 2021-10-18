@@ -17,3 +17,7 @@ tabs:
     assets/js/seeds-tabs.js: {}
   dependencies:
     - slick/slick
+
+accordion:
+  js:
+    assets/js/seeds-accordion.js: {}

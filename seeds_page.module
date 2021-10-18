@@ -244,6 +244,9 @@ function seeds_page_preprocess_ds_1col(&$variables) {
       // Add a custom class.
       $variables["attributes"]['class'][] = 'no-image';
     }
+    if($variables["content"]["#view_mode"] === 'accordion'){
+      $variables["#attached"]["library"][] = 'seeds_page/accordion';
+    }
   }
 }
 
