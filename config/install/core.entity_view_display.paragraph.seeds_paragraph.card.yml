@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.paragraph.card
     - field.field.paragraph.seeds_paragraph.field_seeds_image
     - field.field.paragraph.seeds_paragraph.field_seeds_link
     - field.field.paragraph.seeds_paragraph.field_seeds_text
@@ -12,6 +13,7 @@ dependencies:
     - button_formatter
     - ds
     - field_group
+    - layout_builder
     - seeds_page
     - text
 third_party_settings:
@@ -59,10 +61,15 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-id: paragraph.seeds_paragraph.default
+  layout_builder:
+    enabled: false
+    allow_custom: false
+_core:
+  default_config_hash: tP4yIXoAd1wdnb64Gq9RQ1JRx1R4CvhVGT12UWaz-GQ
+id: paragraph.seeds_paragraph.card
 targetEntityType: paragraph
 bundle: seeds_paragraph
-mode: default
+mode: card
 content:
   field_seeds_image:
     type: entity_reference_entity_view

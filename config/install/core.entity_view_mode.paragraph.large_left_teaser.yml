@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.large_left_teaser
+label: 'Large Left Teaser'
+targetEntityType: paragraph
+cache: true

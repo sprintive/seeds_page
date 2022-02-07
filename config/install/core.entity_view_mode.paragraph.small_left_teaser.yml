@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.small_left_teaser
+label: 'Small Left Teaser'
+targetEntityType: paragraph
+cache: true

@@ -5,15 +5,15 @@ dependencies:
     - core.entity_view_mode.paragraph.accordion
     - field.field.paragraph.seeds_paragraph.field_seeds_image
     - field.field.paragraph.seeds_paragraph.field_seeds_link
-    - field.field.paragraph.seeds_paragraph.field_seeds_style
     - field.field.paragraph.seeds_paragraph.field_seeds_text
     - field.field.paragraph.seeds_paragraph.field_seeds_title
+    - field.field.paragraph.seeds_paragraph.field_seeds_view_mode
     - paragraphs.paragraphs_type.seeds_paragraph
   module:
+    - button_formatter
     - ds
     - field_group
     - layout_builder
-    - button_formatter
     - seeds_page
     - text
 third_party_settings:
@@ -24,14 +24,14 @@ third_party_settings:
       disable_css: false
       entity_classes: all_classes
       settings:
+        classes:
+          layout_class: {  }
         wrappers:
           ds_content: div
         outer_wrapper: div
         attributes: ''
         link_attribute: ''
         link_custom: ''
-        classes:
-          layout_class: {  }
     regions:
       ds_content:
         - group_ti
@@ -47,12 +47,14 @@ third_party_settings:
       children:
         - field_seeds_text
         - field_seeds_link
+      label: 'Body Wrapper'
       parent_name: group_wrapper
+      region: hidden
       weight: 3
       format_type: html_element
       format_settings:
-        id: ''
         classes: body-wrapper
+        id: ''
         element: div
         show_label: false
         label_element: h3
@@ -60,18 +62,18 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-      label: 'Body Wrapper'
-      region: hidden
     group_wrapper:
       children:
         - field_seeds_image
         - group_b
+      label: Wrapper
       parent_name: group_content_wrapper
+      region: hidden
       weight: 2
       format_type: html_element
       format_settings:
-        id: ''
         classes: wrapper
+        id: ''
         element: div
         show_label: false
         label_element: h3
@@ -79,17 +81,17 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-      label: Wrapper
-      region: hidden
     group_ti:
       children:
         - field_seeds_title
+      label: 'Title Wrapper'
       parent_name: ''
+      region: hidden
       weight: 0
       format_type: html_element
       format_settings:
-        id: ''
         classes: title-wrapper
+        id: ''
         element: div
         show_label: false
         label_element: h3
@@ -97,17 +99,17 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-      label: 'Title Wrapper'
-      region: hidden
     group_content_wrapper:
       children:
         - group_wrapper
+      label: 'Content Wrapper'
       parent_name: ''
+      region: hidden
       weight: 1
       format_type: html_element
       format_settings:
-        id: ''
         classes: seeds_accordion
+        id: ''
         element: div
         show_label: false
         label_element: h3
@@ -115,11 +117,9 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-      label: 'Content Wrapper'
-      region: hidden
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 id: paragraph.seeds_paragraph.accordion
 targetEntityType: paragraph
 bundle: seeds_paragraph
@@ -127,41 +127,41 @@ mode: accordion
 content:
   field_seeds_image:
     type: entity_reference_entity_view
-    weight: 2
     label: hidden
     settings:
       view_mode: default
       link: false
     third_party_settings: {  }
+    weight: 2
     region: ds_content
   field_seeds_link:
-    weight: 6
+    type: button_formatter
     label: hidden
     settings:
       style: btn-primary
-      icon: '<i class="fa fa-file" aria-hidden="true"></i>'
-      custom_label: ''
       show_icon: false
+      icon: '<i class="fa fa-file" aria-hidden="true"></i>'
+      download: false
       new_tab: false
       show_custom_label: 0
-      download: false
+      custom_label: ''
       show_description: false
     third_party_settings: {  }
-    type: button_formatter
+    weight: 6
     region: ds_content
   field_seeds_text:
-    weight: 5
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 5
     region: ds_content
   field_seeds_title:
-    weight: 4
+    type: heading
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: heading
+    weight: 4
     region: ds_content
 hidden:
-  field_seeds_style: true
+  field_seeds_view_mode: true

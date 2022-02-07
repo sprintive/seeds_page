@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.vertical_card
+label: 'Vertical Card'
+targetEntityType: paragraph
+cache: true

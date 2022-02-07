@@ -5,306 +5,287 @@
  * Contains seeds_page.module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\seeds_page\SeedsPageManager;
 use Drupal\node\Entity\Node;
-
-
-const PARAGRAPH_BLOCKS = [
-  'seeds_html',
-  'seeds_paragraph',
-  'seeds_slider',
-  'seeds_modal',
-  'seeds_accordion',
-  'seeds_carousel',
-  'seeds_tabs',
-  'seeds_grid',
-];
 
 /**
  * Implements hook_theme().
  */
 function seeds_page_theme($existing, $type, $theme, $path) {
-  $templates['seeds_page_field_paragraph__tabs'] = [
-    'base hook' => 'field',
-  ];
-  $templates['seeds_banner'] = [
-    'render element' => 'content',
-    'variables' => [
-      'image' => NULL,
-      'title' => NULL,
-      'show_title' => NULL,
-    ],
-  ];
-  $templates['seeds_slick_wrapper'] = [
-    'render element' => 'element',
-    'variables' => [
-      'contianer' => NULL,
-    ],
-    'base hook' => 'slick_wrapper',
-  ];
-  return $templates;
+    $templates['seeds_page_field_paragraph__tabs'] = [
+        'base hook' => 'field',
+    ];
+    $templates['seeds_banner'] = [
+        'render element' => 'content',
+        'variables' => [
+            'image' => NULL,
+            'title' => NULL,
+            'show_title' => NULL,
+        ],
+    ];
+    $templates['seeds_slick_wrapper'] = [
+        'render element' => 'element',
+        'variables' => [
+            'contianer' => NULL,
+        ],
+        'base hook' => 'slick_wrapper',
+    ];
+    return $templates;
 }
 
 /**
  * Implements hook_help().
  */
 function seeds_page_help($route_name, RouteMatchInterface $route_match) {
-  switch ($route_name) {
-  // Main module help for the seeds_page module.
-  case 'help.page.seeds_page':
-    $output = '';
-    $output .= '<h3>' . t('About') . '</h3>';
-    $output .= '<p>' . t('Provides functionalities to customize the experience in pages using paragraphs') . '</p>';
-    return $output;
-
-  default:
-  }
+    switch ($route_name) {
+        // Main module help for the seeds_page module.
+        case 'help.page.seeds_page':
+            $output = '<h3>' . t('About') . '</h3>';
+            $output .= '<p>' . t('Provides functionalities to customize the experience in pages using paragraphs') . '</p>';
+            return $output;
+        default:
+            return '';
+    }
 }
 
 /**
  *
  */
 function seeds_page_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
-  /** @var SeedsPageManager $seeds_page_manager */
-  $seeds_page_manager = \Drupal::service('seeds_page.manager');
-  $entity = $variables['element']['#object'] ?? NULL;
-  if (isset($variables['element']['#field_type']) && $variables['element']['#field_type'] === 'entity_reference_revisions') {
-    if ($seeds_page_manager::isBlock($entity, 'seeds_tabs')) {
-      $suggestions[] = 'seeds_page_field_paragraph__tabs';
+    /** @var SeedsPageManager $seeds_page_manager */
+    $seeds_page_manager = \Drupal::service('seeds_page.manager');
+    $entity = $variables['element']['#object'] ?? NULL;
+    if (isset($variables['element']['#field_type']) && $variables['element']['#field_type'] === 'entity_reference_revisions') {
+        if ($seeds_page_manager::isSeedsBlock($entity, 'seeds_tabs')) {
+            $suggestions[] = 'seeds_page_field_paragraph__tabs';
+        }
     }
-  }
 
-  // Override slick wrapper on block type slider to add a container.
-  if ($hook === "slick_wrapper" && $seeds_page_manager::isBlock($entity) && $entity->field_seeds_container->value) {
-    $suggestions[] = "seeds_slick_wrapper";
-  }
+    // Override slick wrapper on block type slider to add a container.
+    if ($hook === "slick_wrapper" && $seeds_page_manager::isSeedsBlock($entity) && $entity->get('field_seeds_container')->value) {
+        $suggestions[] = "seeds_slick_wrapper";
+    }
 }
 
 /**
  * Implements hook_preprocess_HOOK().
  */
 function seeds_page_preprocess_page(&$variables) {
-// Do not do anything in an admin page.
-  if (\Drupal::service('router.admin_context')->isAdminRoute()) {
-    return;
-  }
-
-  /** @var SeedsPageManager $seeds_page_manager */
-  $seeds_page_manager = \Drupal::service('seeds_page.manager');
-  $route_match = \Drupal::routeMatch();
-  $config = \Drupal::config('seeds_page.config');
-  $entity = $seeds_page_manager->getEntityFromCurrentPage();
-  $always_render_banner = $config->get('always_render_banner');
-  // Get the field to render.
-  $field = $config->get('field') ?: 'field_image';
-  // Set the media id.
-  if (isset($entity->{$field}->entity)) {
-    $media_id = $entity->{$field}->entity->id();
-  } else {
-    // Get media id from config.
-    $media_id = $config->get('media_id');
-  }
-  if (($entity || $always_render_banner) && $media_id) {
-    // Load media from media id.
-    $media = \Drupal::entityTypeManager()->getStorage('media')->load($media_id);
-    // Render media using banner view mode.
-    $image_builder = \Drupal::entityTypeManager()->getViewBuilder('media')->view($media, 'seeds_banner');
-    // Get the page title.
-    $request = \Drupal::request();
-    $page_title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
-    // Set it in the variables.
-    $variables['seeds_banner'] = [
-      'image' => $image_builder,
-      'page_title' => $page_title,
-      'show_title' => $config->get('show_title'),
-    ];
-
-    // Render the image if it is allowed.
-    $render_the_banner = $config->get('render_banner');
-    if ($render_the_banner) {
-      $banner = [
-        '#theme' => 'seeds_banner',
-        '#image' => $image_builder,
-        '#title' => $page_title,
-        '#show_title' => $config->get('show_title'),
-      ];
-      $content = $variables["page"]["content"];
-      $variables["page"]["content"] = ['seeds-banner' => $banner] + $content;
+    // Do not do anything in an admin page.
+    if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+        return;
     }
-  }
+
+    /** @var SeedsPageManager $seeds_page_manager */
+    $seeds_page_manager = \Drupal::service('seeds_page.manager');
+    $route_match = \Drupal::routeMatch();
+    $config = \Drupal::config('seeds_page.config');
+    $entity = $seeds_page_manager->getEntityFromCurrentPage();
+    $always_render_banner = $config->get('always_render_banner');
+    // Get the field to render.
+    $field = $config->get('field') ?: 'field_image';
+    // Set the media id.
+    if (isset($entity->{$field}->entity)) {
+        $media_id = $entity->{$field}->entity->id();
+    } else {
+        // Get media id from config.
+        $media_id = $config->get('media_id');
+    }
+    if (($entity || $always_render_banner) && $media_id) {
+        // Load media from media id.
+        $media = \Drupal::entityTypeManager()->getStorage('media')->load($media_id);
+        // Render media using banner view mode.
+        $image_builder = \Drupal::entityTypeManager()->getViewBuilder('media')->view($media, 'seeds_banner');
+        // Get the page title.
+        $request = \Drupal::request();
+        $page_title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+        // Set it in the variables.
+        $variables['seeds_banner'] = [
+            'image' => $image_builder,
+            'page_title' => $page_title,
+            'show_title' => $config->get('show_title'),
+        ];
+
+        // Render the image if it is allowed.
+        $render_the_banner = $config->get('render_banner');
+        if ($render_the_banner) {
+            $banner = [
+                '#theme' => 'seeds_banner',
+                '#image' => $image_builder,
+                '#title' => $page_title,
+                '#show_title' => $config->get('show_title'),
+            ];
+            $content = $variables["page"]["content"];
+            $variables["page"]["content"] = ['seeds-banner' => $banner] + $content;
+        }
+    }
 }
 
 /**
  * Implements hook_preprocess_HOOK().
  */
 function seeds_page_preprocess_block(&$variables) {
-  $block = $variables["content"]["#block_content"] ?? NULL;
-  /** @var SeedsPageManager $seeds_page_manager */
-  $seeds_page_manager = \Drupal::service('seeds_page.manager');
-  if ($seeds_page_manager::isBlock($block)) {
-    // Add library on these block types.
-    $variables['#attached']['library'][] = 'seeds_page/paragraph_block';
+    $block = $variables["content"]["#block_content"] ?? NULL;
+    /** @var SeedsPageManager $seeds_page_manager */
+    $seeds_page_manager = \Drupal::service('seeds_page.manager');
+    if ($seeds_page_manager::isSeedsBlock($block)) {
+        // Add library on these block types.
+        $variables['#attached']['library'][] = 'seeds_page/paragraph_block';
 
-    // Add tabs library only on tabs block type.
-    if ($seeds_page_manager::isBlock($block, 'seeds_tabs')) {
-      $variables['#attached']['library'][] = 'seeds_page/tabs';
+        // Add tabs library only on tabs block type.
+        if ($seeds_page_manager::isSeedsBlock($block, 'seeds_tabs')) {
+            $variables['#attached']['library'][] = 'seeds_page/tabs';
+        }
+
+        if ($seeds_page_manager::isSeedsBlock($block, "seeds_modal")) {
+            if ($block->get('field_seeds_container')->value) {
+                $variables['attributes']['class'][] = "container";
+            }
+        }
+
+        // Add a unique class.
+        $variables['attributes']['class'][] = 'seeds-paragraph-block';
+
+        // Add parallax class.
+        if ($block->hasField('field_seeds_block_parallax') && $block->get('field_seeds_block_parallax')->value) {
+            $variables["attributes"]['class'][] = 'seeds-block-parallax';
+        }
+
+        // Add background class.
+        if ($block->hasField('field_seeds_background_color') && $block->get('field_seeds_background_color')->value !== '') {
+            $variables["attributes"]['class'][] = $block->get('field_seeds_background_color')->value;
+        }
     }
-
-    if ($seeds_page_manager::isBlock($block, "seeds_modal")) {
-      if ($block->field_seeds_container->value) {
-        $variables['attributes']['class'][] = "container";
-      }
-    }
-
-    // Add a unique class.
-    $variables['attributes']['class'][] = 'seeds-paragraph-block';
-
-    // Add parallax class.
-    if (isset($block->field_seeds_block_parallax) && $block->field_seeds_block_parallax->value) {
-      $variables["attributes"]['class'][] = 'seeds-block-parallax';
-    }
-
-    // Add background class.
-    if (isset($block->field_seeds_background_color) && $block->field_seeds_background_color->value !== '') {
-      $variables["attributes"]['class'][] = $block->field_seeds_background_color->value;
-    }
-  }
 }
 
 /**
  * Implements hook_preprocess_HOOK().
  */
 function seeds_page_preprocess_field(&$variables) {
-  $entity = $variables["element"]["#object"];
-  /** @var SeedsPageManager $seeds_page_manager */
-  $seeds_page_manager = \Drupal::service('seeds_page.manager');
-  switch ($variables["element"]["#field_name"]) {
-  case 'field_seeds_text':
-    if ($seeds_page_manager::isBlock($entity, 'seeds_modal')) {
-      $variables["attributes"]['class'][] = 'btn btn-primary';
-    }
-    break;
+    $entity = $variables["element"]["#object"];
+    /** @var SeedsPageManager $seeds_page_manager */
+    $seeds_page_manager = \Drupal::service('seeds_page.manager');
+    switch ($variables["element"]["#field_name"]) {
+        case 'field_seeds_text':
+            if ($seeds_page_manager::isSeedsBlock($entity, 'seeds_modal')) {
+                $variables["attributes"]['class'][] = 'btn btn-primary';
+            }
+            break;
 
-  case 'field_seeds_image':
-    // Render the image field to a responsive image according to its style.
-    if ($seeds_page_manager::isParagraph($entity)) {
-      $bundle = $entity->field_seeds_image->entity->bundle();
-      if ($bundle !== 'local_video' && $bundle !== 'remote_video') {
-        $file = $entity->field_seeds_image->entity->field_image->entity;
-        switch ($entity->field_seeds_style->value) {
-        case 'block-card':
-          $responsive_image = $seeds_page_manager->toResponsiveImage($file, 'seeds_large');
-          break;
-        case 'block-teaser':
-          $responsive_image = $seeds_page_manager->toResponsiveImage($file, 'seeds_medium');
-          break;
-        default:
-          $responsive_image = $seeds_page_manager->toResponsiveImage($file, 'seeds_small');
-        }
-        $variables["items"][0]['content'] = $responsive_image;
-      }
+        case 'field_seeds_paragraph':
+        case 'field_seeds_single_paragraph':
+            if ($seeds_page_manager::isSeedsBlock($entity, 'seeds_grid')) {
+                $desktop = $entity->field_seeds_desktop->value;
+                $tablet = $entity->field_seeds_tablet->value;
+                $mobile = $entity->field_seeds_mobile->value;
+                foreach ($variables['items'] as &$item) {
+                    $item['attributes']->addClass("$desktop $tablet $mobile");
+                }
+            }
+            if ($seeds_page_manager::isSeedsBlock($entity)) {
+                $variables['attributes']['class'][] = $entity->get('field_seeds_container')->value ? 'container' : "";
+            }
+            break;
     }
-    break;
-
-  case 'field_seeds_paragraph':
-  case 'field_seeds_single_paragraph':
-    if ($seeds_page_manager::isBlock($entity, 'seeds_grid')) {
-      $desktop = $entity->field_seeds_desktop->value;
-      $tablet = $entity->field_seeds_tablet->value;
-      $mobile = $entity->field_seeds_mobile->value;
-      foreach ($variables['items'] as &$item) {
-        $item['attributes']->addClass("$desktop $tablet $mobile");
-      }
-    }
-    if ($seeds_page_manager::isBlock($entity)) {
-      $variables['attributes']['class'][] = $entity->field_seeds_container->value ? 'container' : "";
-    }
-    break;
-  }
 }
 
 /**
  * Implements hook_preprocess_HOOK().
  */
 function seeds_page_preprocess_ds_1col(&$variables) {
-  /** @var SeedsPageManager $seeds_page_manager */
-  $seeds_page_manager = \Drupal::service('seeds_page.manager');
-  $paragraph = $variables["content"]["#paragraph"] ?? NULL;
-  if ($seeds_page_manager::isParagraph($paragraph)) {
-    // Add a general class for all paragraph styles.
-    $variables["attributes"]['class'][] = "seeds-block-paragraph-item";
-    if ($style = $paragraph->field_seeds_style->value) {
-      // Add a custom class.
-      $variables["attributes"]['class'][] = $style;
+    /** @var SeedsPageManager $seeds_page_manager */
+    $seeds_page_manager = \Drupal::service('seeds_page.manager');
+    $paragraph = $variables["content"]["#paragraph"] ?? NULL;
+    if ($seeds_page_manager::isSeedsParagraph($paragraph)) {
+        // Add a general class for all paragraph styles.
+        $variables["attributes"]['class'][] = "seeds-block-paragraph-item";
+        // Add 'no-image' class if image is not set
+        if ($paragraph->field_seeds_image->isEmpty()) {
+            // Add a custom class.
+            $variables["attributes"]['class'][] = 'no-image';
+        }
+        if($variables["content"]["#view_mode"] === 'accordion'){
+            $variables["#attached"]["library"][] = 'seeds_page/accordion';
+        }
     }
-    // Add 'no-image' class if image is not set
-    if ($paragraph->field_seeds_image->isEmpty()) {
-      // Add a custom class.
-      $variables["attributes"]['class'][] = 'no-image';
-    }
-    if($variables["content"]["#view_mode"] === 'accordion'){
-      $variables["#attached"]["library"][] = 'seeds_page/accordion';
-    }
-  }
 }
 
 /**
  *
  */
 function seeds_page_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
-  if (preg_match('/block_content_[\w_]+_form/', $form_id)) {
-    $form['#attached']['library'][] = 'seeds_page/backend';
-    $form["info"]["widget"][0]["value"]["#title"] = t('Admin Title');
-  }
+    if (preg_match('/block_content_[\w_]+_form/', $form_id)) {
+        $form['#attached']['library'][] = 'seeds_page/backend';
+        $form["info"]["widget"][0]["value"]["#title"] = t('Admin Title');
+    }
 }
 
 /**
  *
  */
 function seeds_page_preprocess_seeds_page_field_paragraph__tabs(&$variables) {
-  $tabs = [];
-  $paragraphs = $variables["items"] ?? [];
-  foreach ($paragraphs as $paragraph) {
-    $tabs[] = $paragraph["content"]["#paragraph"]->field_seeds_title->value;
-  }
-  $variables['tabs'] = $tabs;
+    $tabs = [];
+    $paragraphs = $variables["items"] ?? [];
+    foreach ($paragraphs as $paragraph) {
+        $tabs[] = $paragraph["content"]["#paragraph"]->field_seeds_title->value;
+    }
+    $variables['tabs'] = $tabs;
 }
 
 /**
  *
  */
 function seeds_page_preprocess_seeds_slick_wrapper(&$variables) {
-  $variables['container'] = 'container';
+    $variables['container'] = 'container';
 }
 
 /**
  * Implementation of hook_token_info().
  */
 function seeds_page_token_info() {
-  $tokens['tokens']['site']['node'] = [
-      'name' => 'Node By ID',
-      'description' => 'Gets a node with the ID',
-      'dynamic' => TRUE,
-      'type'=>'node',
-  ];
-  return $tokens;
+    $tokens['tokens']['site']['node'] = [
+        'name' => 'Node By ID',
+        'description' => 'Gets a node with the ID',
+        'dynamic' => TRUE,
+        'type'=>'node',
+    ];
+    return $tokens;
 }
 
-function seeds_page_tokens($type, $tokens, array $data, array $options, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata) {
-  $replacements = [];
-  if ('site' == $type && ($node_tokens = \Drupal::token()->findWithPrefix($tokens, 'node'))) {
-     foreach ($node_tokens as $key => $node_token) {
-      $explode = explode(':', $key);
-      $nid = $explode[0];
-      $node = Node::load($nid);
-      $node_token = [$explode[1] => $node_token];
-      if ($node) {
-          $bubbleable_metadata->addCacheableDependency($node);
-          $replacements += \Drupal::token()->generate('node', $node_token, ['node' => $node], $options, $bubbleable_metadata);
-      }
+function seeds_page_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+    $replacements = [];
+    if ('site' == $type && ($node_tokens = \Drupal::token()->findWithPrefix($tokens, 'node'))) {
+        foreach ($node_tokens as $key => $node_token) {
+            $explode = explode(':', $key);
+            $nid = $explode[0];
+            $node = Node::load($nid);
+            $node_token = [$explode[1] => $node_token];
+            if ($node) {
+                $bubbleable_metadata->addCacheableDependency($node);
+                $replacements += \Drupal::token()->generate('node', $node_token, ['node' => $node], $options, $bubbleable_metadata);
+            }
+        }
     }
-  }
-  return $replacements;
+    return $replacements;
+}
+
+function seeds_page_field_widget_entity_reference_paragraphs_form_alter(&$element, &$form_state, $context) {
+    if (isset($element["subform"]["field_seeds_view_mode"])) {
+        $options = \Drupal::service('seeds_page.manager')->getAllowedViewModesOptions($element["#paragraph_type"]);
+        $element["subform"]["field_seeds_view_mode"]["widget"]["#options"] = $options ?? [];
+    }
+}
+
+/**
+ * Implements hook_entity_view_mode_alter().
+ */
+function seeds_page_entity_view_mode_alter(&$view_mode, EntityInterface $entity) {
+    if ($entity->getEntityTypeId() === 'paragraph' && $entity->hasField('field_seeds_view_mode')) {
+        $view_mode_id = $entity->get('field_seeds_view_mode')->target_id ?? "default";
+        $view_mode = str_replace("paragraph.", "", $view_mode_id);
+    }
 }

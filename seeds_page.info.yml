@@ -30,7 +30,6 @@ dependencies:
   - responsive_image
   - seeds
   - seeds_media
-  - seeds_page
   - simple_sitemap
   - slick
   - slick_paragraphs
@@ -40,4 +39,3 @@ dependencies:
   - responsive_image_preload
 package: Seeds
 core_incompatible: false
-version: '8.x-1.0'

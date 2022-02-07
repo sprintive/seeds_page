@@ -1,4 +1,3 @@
-
 seeds_page.seeds_page_form:
   path: '/admin/config/content/seeds_page'
   defaults:
@@ -6,3 +5,13 @@ seeds_page.seeds_page_form:
     _title: 'Seeds Page'
   requirements:
     _permission: 'administer seeds page'
+
+seeds_page.paragraph_view_modes_form:
+  path: '/admin/config/user-interface/paragraph-view-modes'
+  defaults:
+    _form: '\Drupal\seeds_page\Form\ParagraphViewModesForm'
+    _title: 'Paragraph View Modes'
+  requirements:
+    _permission: 'administer seeds page'
+  options:
+    _admin_route: TRUE

@@ -14,8 +14,6 @@ third_party_settings:
   layout_builder:
     allow_custom: false
     enabled: false
-_core:
-  default_config_hash: YQnyDq-d9ad3hxvDJ_sSB7JgMn4E8tWI4yxzvX4Kx74
 id: media.image.seeds_banner
 targetEntityType: media
 bundle: image

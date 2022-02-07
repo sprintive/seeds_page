@@ -3,3 +3,10 @@ seeds_page.config:
   description: 'Manage seeds page configuration.'
   route_name: seeds_page.seeds_page_form
   parent: system.admin_config_content
+
+seeds_page.paragraph_view_modes_form:
+  title: 'Paragraphs View Modes'
+  route_name: seeds_page.paragraph_view_modes_form
+  description: 'Manage paragraphs view modes.'
+  parent: system.admin_config_content
+  weight: 99

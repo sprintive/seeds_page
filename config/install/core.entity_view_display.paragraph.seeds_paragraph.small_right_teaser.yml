@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.paragraph.small_right_teaser
     - field.field.paragraph.seeds_paragraph.field_seeds_image
     - field.field.paragraph.seeds_paragraph.field_seeds_link
     - field.field.paragraph.seeds_paragraph.field_seeds_text
@@ -11,58 +12,41 @@ dependencies:
   module:
     - button_formatter
     - ds
-    - field_group
+    - layout_builder
     - seeds_page
-    - text
 third_party_settings:
   ds:
     layout:
-      id: ds_1col
-      library: null
-      disable_css: false
+      id: ds_2col
+      library: ds/ds_2col
+      disable_css: true
       entity_classes: all_classes
       settings:
         classes:
           layout_class: {  }
         wrappers:
-          ds_content: div
+          left: div
+          right: div
         outer_wrapper: div
         attributes: ''
         link_attribute: ''
         link_custom: ''
         label: ''
     regions:
-      ds_content:
+      left:
+        - field_seeds_title
+        - field_seeds_link
+      right:
         - field_seeds_image
-        - group_b
-        - field_seeds_title
-        - field_seeds_text
-        - field_seeds_link
-  field_group:
-    group_b:
-      children:
-        - field_seeds_title
-        - field_seeds_text
-        - field_seeds_link
-      label: 'Body Wrapper'
-      parent_name: ''
-      region: ds_content
-      weight: 1
-      format_type: html_element
-      format_settings:
-        classes: body-wrapper
-        id: ''
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-id: paragraph.seeds_paragraph.default
+  layout_builder:
+    enabled: false
+    allow_custom: false
+_core:
+  default_config_hash: tP4yIXoAd1wdnb64Gq9RQ1JRx1R4CvhVGT12UWaz-GQ
+id: paragraph.seeds_paragraph.small_right_teaser
 targetEntityType: paragraph
 bundle: seeds_paragraph
-mode: default
+mode: small_right_teaser
 content:
   field_seeds_image:
     type: entity_reference_entity_view
@@ -71,8 +55,8 @@ content:
       view_mode: default
       link: false
     third_party_settings: {  }
-    weight: 0
-    region: ds_content
+    weight: 2
+    region: right
   field_seeds_link:
     type: button_formatter
     label: hidden
@@ -86,15 +70,8 @@ content:
       custom_label: ''
       show_description: false
     third_party_settings: {  }
-    weight: 6
-    region: ds_content
-  field_seeds_text:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 5
-    region: ds_content
+    weight: 1
+    region: left
   field_seeds_title:
     type: heading
     label: hidden
@@ -102,7 +79,8 @@ content:
       tag: h2
       class: ''
     third_party_settings: {  }
-    weight: 4
-    region: ds_content
+    weight: 0
+    region: left
 hidden:
+  field_seeds_text: true
   field_seeds_view_mode: true

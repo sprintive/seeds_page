@@ -1,42 +1,30 @@
-seeds_page.screen-xs-max:
-  label: screen-xs-max
-  mediaQuery: 'all and (max-width: 767px)'
+seeds_page.extra-small:
+  label: Bootstrap XS
+  mediaQuery: '(max-width: 575.98px)'
   weight: 1
   multipliers:
     - 1x
-    - 2x
-seeds_page.screen-sm-min:
-  label: screen-sm-min
-  mediaQuery: 'all and (min-width: 768px)'
+seeds_page.small:
+  label: Bootstrap SM
+  mediaQuery: '(min-width: 576px) and (max-width: 767.98px)'
   weight: 2
   multipliers:
     - 1x
-    - 2x
-seeds_page.screen-sm-max:
-  label: screen-sm-max
-  mediaQuery: 'all and (max-width: 991px)'
+seeds_page.medium:
+  label: Bootstrap MD
+  mediaQuery: '(min-width: 768px) and (max-width: 991.98px)'
   weight: 3
   multipliers:
     - 1x
-    - 2x
-seeds_page.screen-md-min:
-  label: screen-md-min
-  mediaQuery: 'all and (min-width: 992px)'
-  weight: 4
+seeds_page.large:
+  label: Bootstrap LG
+  mediaQuery: '(min-width: 992px) and (max-width: 1199.98px)'
+  weight: 4w
   multipliers:
     - 1x
-    - 2x
-seeds_page.screen-md-max:
-  label: screen-md-max
-  mediaQuery: 'all and (max-width: 1199px)'
+seeds_page.extra-large:
+  label: Bootstrap XL
+  mediaQuery: '(min-width: 1200px) and (max-width: 1399.98px)'
   weight: 5
   multipliers:
     - 1x
-    - 2x
-seeds_page.screen-lg-min:
-  label: screen-lg-min
-  mediaQuery: 'all and (min-width: 1200px)'
-  weight: 6
-  multipliers:
-    - 1x
-    - 2x

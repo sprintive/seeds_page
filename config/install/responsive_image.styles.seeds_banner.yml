@@ -11,17 +11,17 @@ id: seeds_banner
 label: Banner
 image_style_mappings:
   -
-    breakpoint_id: seeds_page.screen-md-min
+    breakpoint_id: seeds_page.medium
     multiplier: 1x
     image_mapping_type: image_style
     image_mapping: seeds_banner_992px
   -
-    breakpoint_id: seeds_page.screen-sm-min
+    breakpoint_id: seeds_page.small
     multiplier: 1x
     image_mapping_type: image_style
     image_mapping: seeds_banner_less_992px
   -
-    breakpoint_id: seeds_page.screen-xs-max
+    breakpoint_id: seeds_page.extra-small
     multiplier: 1x
     image_mapping_type: image_style
     image_mapping: seeds_banner_less_768px
