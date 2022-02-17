@@ -24,7 +24,7 @@ seeds_page.large:
     - 1x
 seeds_page.extra-large:
   label: Bootstrap XL
-  mediaQuery: '(min-width: 1200px) and (max-width: 1399.98px)'
+  mediaQuery: '(min-width: 1200px)'
   weight: 5
   multipliers:
     - 1x
