@@ -32,9 +32,9 @@
     background-image: url(../images/tablet2.svg); }
   .block-content-form .form-type-radio input[value*='col-md-12'] + label {
     background-image: url(../images/tablet1.svg); }
-  .block-content-form .form-type-radio input[value='col-xs-6'] + label {
+  .block-content-form .form-type-radio input[value='col-6'] + label {
     background-image: url(../images/mobile2.svg); }
-  .block-content-form .form-type-radio input[value='col-xs-12'] + label {
+  .block-content-form .form-type-radio input[value='col-12'] + label {
     background-image: url(../images/mobile1.svg); }
   .block-content-form .form-type-radio input:checked + label {
     border: 3px solid #00AAFF; }

@@ -11,13 +11,13 @@ type: list_string
 settings:
   allowed_values:
     -
-      value: col-xs-4
+      value: col-4
       label: 'Three Columns'
     -
-      value: col-xs-6
+      value: col-6
       label: 'Two Columns'
     -
-      value: col-xs-12
+      value: col-12
       label: 'One Column'
   allowed_values_function: ''
 module: options
