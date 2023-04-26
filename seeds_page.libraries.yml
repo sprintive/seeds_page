@@ -6,6 +6,7 @@ paragraph_block:
     assets/js/seeds-page.js: {}
   dependencies:
     - core/drupal.dialog
+    - core/once
 
 backend:
   css:
@@ -17,7 +18,10 @@ tabs:
     assets/js/seeds-tabs.js: {}
   dependencies:
     - slick/slick
+    - core/once
 
 accordion:
   js:
     assets/js/seeds-accordion.js: {}
+  dependencies:
+    - core/once
