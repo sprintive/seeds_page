@@ -280,7 +280,7 @@ function seeds_page_tokens($type, $tokens, array $data, array $options, Bubbleab
 /**
  *
  */
-function seeds_page_field_widget_entity_reference_paragraphs_form_alter(&$element, &$form_state, $context) {
+function seeds_page_field_widget_single_element_form_alter(&$element, &$form_state, $context) {
   if (isset($element["subform"]["field_seeds_view_mode"])) {
     $options = \Drupal::service('seeds_page.manager')->getAllowedViewModesOptions($element["#paragraph_type"]);
     $element["subform"]["field_seeds_view_mode"]["widget"]["#options"] = $options ?? [];
